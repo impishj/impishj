@@ -80,6 +80,10 @@ var meetingTimer = function(timeDelaySet,audioFileName){
 		setInterval(function() {
 			countDownNumber--
 			$("#minutes1").html(countDownNumber+" Seconds remaining");
+			if(countDownNumber == 0){
+				$("#minutes1").html("1 Minute Timer");
+				clearInterval();
+			}
 		}, 1000);
 	});
 
@@ -91,6 +95,10 @@ var meetingTimer = function(timeDelaySet,audioFileName){
 		setInterval(function() {
 			countDownNumber--
 			$("#minutes2").html(countDownNumber+" Seconds remaining");
+			if(countDownNumber == 0){
+				$("#minutes1").html("2 Minute Timer");
+				clearInterval();
+			}
 		}, 1000);
 	});
 
@@ -102,6 +110,10 @@ var meetingTimer = function(timeDelaySet,audioFileName){
 		setInterval(function() {
 			countDownNumber--
 			$("#seconds90").html(countDownNumber+" Seconds remaining");
+			if(countDownNumber == 0){
+				$("#minutes1").html("1 1/2 Minute Timer");
+				clearInterval();
+			}
 		}, 1000);
 	});
 
