@@ -59,6 +59,7 @@ var meetingTimer = function(timeDelaySet,audioFileName){
 
 	// var a1 = new Audio(audioFileName);
 	// var a2 = new Audio('dingdingding.mp3');
+
 	setTimeout(function() {
 		// a1.play();
 		if(audioFileName=="ding"){
@@ -82,11 +83,13 @@ var meetingTimer = function(timeDelaySet,audioFileName){
 		meetingTimer(60000,"dingdingding")
 		var countDownNumber = 60;
 		$("#minutes1").html(countDownNumber+" Seconds remaining");
+		document.getElementById("minutes1").disabled = true; 
 		setInterval(function() {
 			countDownNumber--
 			$("#minutes1").html(countDownNumber+" Seconds remaining");
 			if(countDownNumber == 0){
 				$("#minutes1").html("1 Minute Timer");
+				document.getElementById("minutes1").disabled = false; 
 				clearInterval();
 			}
 		}, 1000);
@@ -97,11 +100,13 @@ var meetingTimer = function(timeDelaySet,audioFileName){
 		meetingTimer(120000,"dingdingding")
 		var countDownNumber = 120;
 		$("#minutes2").html(countDownNumber+" Seconds remaining");
+		document.getElementById("minutes2").disabled = true; 
 		setInterval(function() {
 			countDownNumber--
 			$("#minutes2").html(countDownNumber+" Seconds remaining");
 			if(countDownNumber == 0){
 				$("#minutes1").html("2 Minute Timer");
+				document.getElementById("minutes1").disabled = false; 
 				clearInterval();
 			}
 		}, 1000);
@@ -112,11 +117,13 @@ var meetingTimer = function(timeDelaySet,audioFileName){
 		meetingTimer(90000,"dingdingding")
 		var countDownNumber = 90;
 		$("#seconds90").html(countDownNumber+" Seconds remaining");
+		document.getElementById("seconds90").disabled = true; 
 		setInterval(function() {
 			countDownNumber--
 			$("#seconds90").html(countDownNumber+" Seconds remaining");
 			if(countDownNumber == 0){
 				$("#minutes1").html("1 1/2 Minute Timer");
+				document.getElementById("seconds90").disabled = false; 
 				clearInterval();
 			}
 		}, 1000);
