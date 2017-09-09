@@ -90,6 +90,7 @@ var meetingTimer = function(timeDelaySet,audioFileName){
 			if(countDownNumber <= 1){
 				$("#minutes1").html("1 Minute Timer");
 				document.getElementById("minutes1").disabled = false; 
+				countDownNumber = 60;
 				clearInterval();
 			}
 		}, 1000);
@@ -107,6 +108,7 @@ var meetingTimer = function(timeDelaySet,audioFileName){
 			if(countDownNumber <= 1){
 				$("#minutes1").html("2 Minute Timer");
 				document.getElementById("minutes1").disabled = false; 
+				countDownNumber = 120;
 				clearInterval();
 			}
 		}, 1000);
@@ -124,6 +126,7 @@ var meetingTimer = function(timeDelaySet,audioFileName){
 			if(countDownNumber <= 1){
 				$("#minutes1").html("1 1/2 Minute Timer");
 				document.getElementById("seconds90").disabled = false; 
+				countDownNumber = 90;
 				clearInterval();
 			}
 		}, 1000);
