@@ -41,6 +41,8 @@
             <div class="eight columns"> </div>
         </div>
 	</div>
+	<audio id="ding" src="ding.wav" preload="auto"></audio>
+	<audio id="dingding" src="dingding.wav" preload="auto"></audio>
 	    <script src="https://code.jquery.com/jquery-3.2.0.min.js" integrity="sha256-JAW99MJVpJBGcbzEuXk4Az05s/XyDdBomFqNlM3ic+I=" crossorigin="anonymous"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-3.2.0.min.js"><\/script>')</script>
         <script src="js/jquery.min.js"></script>
@@ -55,10 +57,16 @@ var meetingTimer = function(timeDelaySet,audioFileName){
 	console.log(timeDelaySet+"< how long"+audioFileName+"< audioFile")
 
 
-	var a1 = new Audio(audioFileName);
+	// var a1 = new Audio(audioFileName);
 	// var a2 = new Audio('dingdingding.mp3');
 	setTimeout(function() {
-		a1.play();
+		// a1.play();
+		if(audioFileName=="ding"){
+			document.getElementById('ding').play();
+		}
+		if(audioFileName=="dingding"){
+			document.getElementById('dingding').play();
+		}
 	}, timeDelaySet);
 	// 2 minute timer - 120000 ms
 	// 90 sec 90000
@@ -70,8 +78,8 @@ var meetingTimer = function(timeDelaySet,audioFileName){
 	// meetingTimer(20000); // cookstep namespace
 
 	$("#minutes1").on("click", function(e){
-		meetingTimer(40000,"ding.wav")
-		meetingTimer(60000,"dingdingding.wav")
+		meetingTimer(40000,"ding")
+		meetingTimer(60000,"dingdingding")
 		var countDownNumber = 60;
 		$("#minutes1").html(countDownNumber+" Seconds remaining");
 		setInterval(function() {
@@ -85,8 +93,8 @@ var meetingTimer = function(timeDelaySet,audioFileName){
 	});
 
 	$("#minutes2").on("click", function(e){
-		meetingTimer(100000,"ding.wav")
-		meetingTimer(120000,"dingdingding.wav")
+		meetingTimer(100000,"ding")
+		meetingTimer(120000,"dingdingding")
 		var countDownNumber = 120;
 		$("#minutes2").html(countDownNumber+" Seconds remaining");
 		setInterval(function() {
@@ -100,8 +108,8 @@ var meetingTimer = function(timeDelaySet,audioFileName){
 	});
 
 	$("#seconds90").on("click", function(e){
-		meetingTimer(70000,"ding.wav")
-		meetingTimer(90000,"dingdingding.wav")
+		meetingTimer(70000,"ding")
+		meetingTimer(90000,"dingdingding")
 		var countDownNumber = 90;
 		$("#seconds90").html(countDownNumber+" Seconds remaining");
 		setInterval(function() {
