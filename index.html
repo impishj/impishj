@@ -50,9 +50,6 @@
 
 /* End Drag and Drop Funcs */
 
-	var a1 = new Audio("ding.mp3");
-		a1.play();
-
 $().ready(function(){
 var meetingTimer = function(timeDelaySet,audioFileName){
 	console.log(timeDelaySet+"< how long"+audioFileName+"< audioFile")
@@ -73,8 +70,8 @@ var meetingTimer = function(timeDelaySet,audioFileName){
 	// meetingTimer(20000); // cookstep namespace
 
 	$("#minutes1").on("click", function(e){
-		meetingTimer(40000,"ding.mp3")
-		meetingTimer(60000,"dingdingding.mp3")
+		meetingTimer(40000,"ding.wav")
+		meetingTimer(60000,"dingdingding.wav")
 		var countDownNumber = 60;
 		$("#minutes1").html(countDownNumber+" Seconds remaining");
 		setInterval(function() {
@@ -88,8 +85,8 @@ var meetingTimer = function(timeDelaySet,audioFileName){
 	});
 
 	$("#minutes2").on("click", function(e){
-		meetingTimer(100000,"ding.mp3")
-		meetingTimer(120000,"dingdingding.mp3")
+		meetingTimer(100000,"ding.wav")
+		meetingTimer(120000,"dingdingding.wav")
 		var countDownNumber = 120;
 		$("#minutes2").html(countDownNumber+" Seconds remaining");
 		setInterval(function() {
@@ -103,8 +100,8 @@ var meetingTimer = function(timeDelaySet,audioFileName){
 	});
 
 	$("#seconds90").on("click", function(e){
-		meetingTimer(70000,"ding.mp3")
-		meetingTimer(90000,"dingdingding.mp3")
+		meetingTimer(70000,"ding.wav")
+		meetingTimer(90000,"dingdingding.wav")
 		var countDownNumber = 90;
 		$("#seconds90").html(countDownNumber+" Seconds remaining");
 		setInterval(function() {
