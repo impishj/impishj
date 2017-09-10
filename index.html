@@ -35,7 +35,7 @@
     <div class="container editing">
         <div class="row controls">
             <div class="twelve columns">
-            	<br/>Meeting Timer with 20 seconds left ding sound. v0.01
+            	<br/>Meeting Timer with 20 seconds left warning v0.01
             </div>
 
             <div class="twelve columns">
@@ -101,6 +101,7 @@ var meetingTimer = function(timeDelaySet,audioFileName){
 				// $("#playpause").html("Paused");
 			} else {
 				pausePlay = "play";
+				
 			}
 		});
 		$("#reset").on("click",function(e){
