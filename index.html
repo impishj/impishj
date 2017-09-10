@@ -34,11 +34,19 @@
         <![endif]-->
     <div class="container editing">
         <div class="row controls">
-            <div class="four columns"></div>
-            <button id="minutes1">1 minute timer</button>
-            <button id="seconds90">1 1/2 minute timer</button>
-            <button id="minutes2">2 minute timer</button>
-            <div class="eight columns">Meeting Timer with 20 seconds left ding sound.</div>
+            <div class="twelve columns">
+            	<br/>Meeting Timer with 20 seconds left ding sound.
+            </div>
+
+            <div class="twelve columns">
+            	<button id="minutes1" class="timers">1 minute timer</button>
+            	<button id="seconds90"class="timers">1 1/2 minute timer</button>
+            	<button id="minutes2" class="timers">2 minute timer</button>
+			</div>
+            <div class="twelve columns">
+            	<button id="playpause">Pause</button>
+            	<button id="reset">Reset</button>
+            </div>
         </div>
 	</div>
 	<audio id="ding" src="ding.wav" preload="auto"></audio>
@@ -53,9 +61,10 @@
 /* End Drag and Drop Funcs */
 
 $().ready(function(){
+document.getElementById('ding').play();
+document.getElementById('dingding').play();
+
 var meetingTimer = function(timeDelaySet,audioFileName){
-	document.getElementById('ding').play();
-	document.getElementById('dingding').play();
 
 	// var a1 = new Audio(audioFileName);
 	// var a2 = new Audio('dingding.mp3');
@@ -80,65 +89,155 @@ var meetingTimer = function(timeDelaySet,audioFileName){
 
 	$("#minutes1").on("click", function(e){
 		var countDownNumber = 60;
+		var pausePlay = "play";
 		$("#minutes1").html(countDownNumber+" Seconds remaining");
-		document.getElementById("minutes1").disabled = true; 
-		var minutesInterval = setInterval(function() {
-			countDownNumber--
-			$("#minutes1").html(countDownNumber+" Seconds remaining");
+		$(".timers").attr("disabled","true")
+		// document.getElementById("minutes1").disabled = true; 
+		$("#playpause").on("click",function(e){
+			if(pausePlay == "play"){
+				pausePlay = "pause";
+				// $("#playpause").html("Paused");
+			} else {
+				pausePlay = "play";
+			}
+		});
+		$("#reset").on("click",function(e){
+			$("#minutes1").html("1 Minute Timer");
+			$(".timers").removeAttr('disabled');
+			// document.getElementById("minutes1").disabled = false; 
+			clearInterval(minutesInterval1)
+			countDownNumber = 60;
+			pausePlay = "play";
+		});
+
+		var minutesInterval1 = setInterval(function() {
+			if(pausePlay === "play"){
+				countDownNumber--
+			}
+
+			
+			if(pausePlay == "play"){
+				$("#minutes1").html(countDownNumber+" Seconds remaining");
+				} else {
+				// $("#minutes1").html("Paused");
+			}
+
 			if(countDownNumber == 20){
 				meetingTimer(1,"ding");
 			}
 			if(countDownNumber <= 1){
 				meetingTimer(1,"dingding");
 				$("#minutes1").html("1 Minute Timer");
-				document.getElementById("minutes1").disabled = false; 
+				// document.getElementById("minutes1").disabled = false; 
+				$(".timers").removeAttr('disabled');
 				countDownNumber = 60;
-				clearInterval(minutesInterval);
+				clearInterval(minutesInterval1);
 			}
 		}, 1000);
 	});
+
+
 
 	$("#minutes2").on("click", function(e){
 		var countDownNumber = 120;
+		var pausePlay = "play";
 		$("#minutes2").html(countDownNumber+" Seconds remaining");
-		document.getElementById("minutes2").disabled = true; 
-		setInterval(function() {
-			countDownNumber--
-			$("#minutes2").html(countDownNumber+" Seconds remaining");
+		// document.getElementById("minutes2").disabled = true; 
+		$(".timers").attr("disabled","true")
+		$("#playpause").on("click",function(e){
+			if(pausePlay == "play"){
+				pausePlay = "pause";
+				// $("#playpause").html("Paused");
+			} else {
+				pausePlay = "play";
+			}
+		});
+		$("#reset").on("click",function(e){
+			$("#minutes2").html("2 Minute Timer");
+			$(".timers").removeAttr('disabled');
+			// document.getElementById("minutes2").disabled = false; 
+			clearInterval(minutesInterval1)
+			countDownNumber = 120;
+			pausePlay = "play";
+		});
+
+		var minutesInterval1 = setInterval(function() {
+			if(pausePlay === "play"){
+				countDownNumber--
+			}
+
+			
+			if(pausePlay == "play"){
+				$("#minutes2").html(countDownNumber+" Seconds remaining");
+				} else {
+				$("#minutes2").html("Paused");
+			}
+
 			if(countDownNumber == 20){
-				meetingTimer(1,"ding")
+				meetingTimer(1,"ding");
 			}
 			if(countDownNumber <= 1){
 				meetingTimer(1,"dingding");
-				$("#minutes1").html("2 Minute Timer");
-				document.getElementById("minutes1").disabled = false; 
+				$("#minutes2").html("2 Minute Timer");
+				// document.getElementById("minutes2").disabled = false; 
+				$(".timers").removeAttr('disabled');
 				countDownNumber = 120;
-				this.clearInterval();
+				clearInterval(minutesInterval1);
 			}
 		}, 1000);
 	});
 
+
+
 	$("#seconds90").on("click", function(e){
-		meetingTimer(70000,"ding")
-		meetingTimer(90000,"dingding")
 		var countDownNumber = 90;
+		var pausePlay = "play";
 		$("#seconds90").html(countDownNumber+" Seconds remaining");
-		document.getElementById("seconds90").disabled = true; 
-		setInterval(function() {
-			countDownNumber--
-			$("#seconds90").html(countDownNumber+" Seconds remaining");
+		// document.getElementById("seconds90").disabled = true; 
+		$(".timers").attr("disabled","true")
+		$("#playpause").on("click",function(e){
+			if(pausePlay == "play"){
+				pausePlay = "pause";
+				$("#playpause").html("Paused");
+			} else {
+				pausePlay = "play";
+			}
+		});
+		$("#reset").on("click",function(e){
+			$("#seconds90").html("1 1/2 Minute Timer");
+			$(".timers").removeAttr('disabled');
+			// document.getElementById("seconds90").disabled = false; 
+			clearInterval(minutesInterval1)
+			countDownNumber = 90;
+			pausePlay = "play";
+		});
+
+		var minutesInterval1 = setInterval(function() {
+			if(pausePlay === "play"){
+				countDownNumber--
+			}
+
+			
+			if(pausePlay == "play"){
+				$("#seconds90").html(countDownNumber+" Seconds remaining");
+				} else {
+				$("#seconds90").html("Paused");
+			}
+
 			if(countDownNumber == 20){
-				meetingTimer(1,"ding")
+				meetingTimer(1,"ding");
 			}
 			if(countDownNumber <= 1){
 				meetingTimer(1,"dingding");
-				$("#minutes1").html("1 1/2 Minute Timer");
-				document.getElementById("seconds90").disabled = false; 
+				$("#seconds90").html("1 Minute Timer");
+				// document.getElementById("seconds90").disabled = false; 
+				$(".timers").removeAttr('disabled');
 				countDownNumber = 90;
-				this.clearInterval();
+				clearInterval(minutesInterval1);
 			}
 		}, 1000);
 	});
+
 
 }); // jquery on ready
 
