@@ -39,13 +39,13 @@
             </div>
 
             <div class="twelve columns">
-            	<button id="minutes1" class="timers">1 minute timer</button>
-            	<button id="seconds90"class="timers">1 1/2 minute timer</button>
-            	<button id="minutes2" class="timers">2 minute timer</button>
+            	<button id="minutes1" class="timers" data-title="1 minute timer">1 minute timer</button>
+            	<button id="seconds90"class="timers" data-title="1 1/2 minute timer">1 1/2 minute timer</button>
+            	<button id="minutes2" class="timers" data-title="2 minute timer">2 minute timer</button>
 			</div>
             <div class="twelve columns">
-            	<button id="playpause">Pause</button>
-            	<button id="reset">Reset</button>
+            	<!-- <button id="playpause">Pause</button> -->
+            	<button id="reset">Reset All</button>
             </div>
         </div>
 	</div>
@@ -61,191 +61,154 @@
 /* End Drag and Drop Funcs */
 
 $().ready(function(){
-document.getElementById('ding').play();
-document.getElementById('dingding').play();
+	document.getElementById('ding').play();
+	document.getElementById('dingding').play();
+	
+	function MeetingTimer ( targetName, countDownNumber, intervalName ) {
 
-var meetingTimer = function(timeDelaySet,audioFileName){
+		var passedCountDownNumber = countDownNumber;
+	    this.countDownNumber = countDownNumber;
+	    var isPlaying = "";
+	    this.playStatus = function(){
+	    	return isPlaying;
+	    }
+	    this.stop = function(){
+	    	clearInterval(window.intervalName);
+	    	clearInterval(window.intervalNameAudio);
+	    	console.log(countDownNumber);
+	    	isPlaying = "no";
+	    	$(targetName).html("PLAY ("+countDownNumber+" Seconds remaining)");
+	    	// currentCountDownNumber = countDownNumber;
+	    }
 
-	// var a1 = new Audio(audioFileName);
-	// var a2 = new Audio('dingding.mp3');
 
-	setTimeout(function() {
-		// a1.play();
-		if(audioFileName=="ding"){
-			document.getElementById('ding').play();
-		}
-		if(audioFileName=="dingding"){
-			document.getElementById('dingding').play();
-		}
-	}, timeDelaySet);
-	// 2 minute timer - 120000 ms
-	// 90 sec 90000
-	// 1 minute 60000
-	// 20 seconds 20 000 till end should make another sound
+	    this.play = function(){
+			$(targetName).html("PAUSE ("+countDownNumber+" Seconds remaining)");	    	
+	    	window.intervalName = setInterval(function() {
+	    		countDownNumber--;
+	    		if(countDownNumber <= 0){
+	    			clearInterval(window.intervalName);
+	    			isPlaying = "no";	
+	    			console.log("it's over");
+	    			return
+	    		}
+	    		console.log("once every second"); 
+	    		isPlaying = "yes";
+	    		$(targetName).html("PAUSE ("+countDownNumber+" Seconds remaining)");
+
+
+	    		// } else {
+	    		// 	$(targetName).html("PAUSE ("+countDownNumber+" Seconds remaining)");
+	    		// }
+	    		// console.log(countDownNumber);
+    		}, 50);
+
+	    	window.intervalNameAudio = setTimeout(function() { 
+	    		document.getElementById('ding').play();
+	    		countDownNumber = passedCountDownNumber; // countDownNumber = countDownNum;
+	    		$(targetName).html($(targetName).attr("data-title"));
+	    		$(".timers").removeAttr('disabled');
+    		}, (countDownNumber*50));
+	    		
+	    }
+
+
+	    this.reset = function(){
+	    	countDownNumber = passedCountDownNumber;
+	    	var targetTitle = $(targetName).attr("data-title");
+	    	$(targetName).html(targetTitle);
+			clearInterval(window.intervalName);
+	    	clearTimeout(window.intervalNameAudio);
+	    	isPlaying = "no";
+	    }
 
 	}
 
-	// meetingTimer(20000); // cookstep namespace
+	var mtimer60 = new MeetingTimer("#minutes1",60,"minutes1Timer");
+	var mtimer90 = new MeetingTimer("#seconds90",90,"minutes2Timer");
+	var mtimer120 = new MeetingTimer("#minutes2",120,"minutes3Timer");
 
-	$("#minutes1").on("click", function(e){
-		meetingTimer(1,"ding");
-		meetingTimer(1,"dingding");
-		var countDownNumber = 60;
-		var pausePlay = "play";
-		$("#minutes1").html(countDownNumber+" Seconds remaining");
-		$(".timers").attr("disabled","true")
-		// document.getElementById("minutes1").disabled = true; 
-		$("#playpause").on("click",function(e){
-			if(pausePlay == "play"){
-				pausePlay = "pause";
-				// $("#playpause").html("Paused");
-			} else {
-				pausePlay = "play";
-				
-			}
-		});
-		$("#reset").on("click",function(e){
-			$("#minutes1").html("1 Minute Timer");
+	$("#minutes1").on("click",function(){
+		if(mtimer60.playStatus() === ""){
+			console.log(mtimer60.playStatus()+"mtimer60.isPlaying ''")
+			$(".timers").attr('disabled',true);
+			$("#minutes1").removeAttr('disabled');
+			mtimer60.play();
+		} else if(mtimer60.playStatus() === "no") {
+			$(".timers").attr('disabled',true);
+			$("#minutes1").removeAttr('disabled');
+			console.log(mtimer60.playStatus()+"mtimer60.isPlaying 'no'")
+			mtimer60.play();
+		} else {
+			console.log(mtimer60.playStatus()+"mtimer60.isPlaying 'else'")
+			mtimer60.stop();
 			$(".timers").removeAttr('disabled');
-			// document.getElementById("minutes1").disabled = false; 
-			clearInterval(minutesInterval1)
-			countDownNumber = 60;
-			pausePlay = "play";
-		});
+		}
+	});
+	
+	$("#seconds90").on("click",function(){
+		if(mtimer90.playStatus() === ""){
+			$(".timers").attr('disabled',true);
+			$("#seconds90").removeAttr('disabled');
+			console.log(mtimer90.playStatus()+"mtimer90.isPlaying ''")
+			mtimer90.play();
+		} else if(mtimer90.playStatus() === "no") {
+			$(".timers").attr('disabled',true);
+			$("#seconds90").removeAttr('disabled');
+			console.log(mtimer90.playStatus()+"mtimer90.isPlaying 'no'")
+			mtimer90.play();
+		} else {
+			console.log(mtimer90.playStatus()+"mtimer90.isPlaying 'else'")
+			mtimer90.stop();
+			$(".timers").removeAttr('disabled');
+		}
+	});
 
-		var minutesInterval1 = setInterval(function() {
-			if(pausePlay === "play"){
-				countDownNumber--
-			}
+	$("#minutes2").on("click",function(){
+		if(mtimer120.playStatus() === ""){
+			console.log(mtimer120.playStatus()+"mtimer120.isPlaying ''")
+			$(".timers").attr('disabled',true);
+			$("#minutes2").removeAttr('disabled');
+			mtimer120.play();
+		} else if(mtimer120.playStatus() === "no") {
+			$(".timers").attr('disabled',true);
+			$("#minutes2").removeAttr('disabled');
+			console.log(mtimer120.playStatus()+"mtimer120.isPlaying 'no'")
+			mtimer120.play();
+		} else {
+			console.log(mtimer120.playStatus()+"mtimer120.isPlaying 'else'")
+			mtimer120.stop();
+			$(".timers").removeAttr('disabled');
+		}
+	});
 
-			
-			if(pausePlay == "play"){
-				$("#minutes1").html(countDownNumber+" Seconds remaining");
-				} else {
-				// $("#minutes1").html("Paused");
-			}
-
-			if(countDownNumber == 20){
-				meetingTimer(1,"ding");
-			}
-			if(countDownNumber <= 1){
-				meetingTimer(1,"dingding");
-				$("#minutes1").html("1 Minute Timer");
-				// document.getElementById("minutes1").disabled = false; 
-				$(".timers").removeAttr('disabled');
-				countDownNumber = 60;
-				clearInterval(minutesInterval1);
-			}
-		}, 1000);
+	// $("#playpause").on("click",function(){
+	// 	$(".timers").removeAttr('disabled');
+	// 	mtimer60.stop();
+	// 	mtimer90.stop();
+	// 	mtimer120.stop();
+	// });
+	$("#reset").on("click",function(){
+		$(".timers").removeAttr('disabled');
+		mtimer60.reset();
+		mtimer90.reset();
+		mtimer120.reset();
+		// mtimer60.stop();
+		// mtimer90.stop();
+		// mtimer120.stop();
 	});
 
 
-
-	$("#minutes2").on("click", function(e){
-		meetingTimer(1,"ding");
-		meetingTimer(1,"dingding");
-		
-		var countDownNumber = 120;
-		var pausePlay = "play";
-		$("#minutes2").html(countDownNumber+" Seconds remaining");
-		// document.getElementById("minutes2").disabled = true; 
-		$(".timers").attr("disabled","true")
-		$("#playpause").on("click",function(e){
-			if(pausePlay == "play"){
-				pausePlay = "pause";
-				// $("#playpause").html("Paused");
-			} else {
-				pausePlay = "play";
-			}
-		});
-		$("#reset").on("click",function(e){
-			$("#minutes2").html("2 Minute Timer");
-			$(".timers").removeAttr('disabled');
-			// document.getElementById("minutes2").disabled = false; 
-			clearInterval(minutesInterval1)
-			countDownNumber = 120;
-			pausePlay = "play";
-		});
-
-		var minutesInterval1 = setInterval(function() {
-			if(pausePlay === "play"){
-				countDownNumber--
-			}
-
-			
-			if(pausePlay == "play"){
-				$("#minutes2").html(countDownNumber+" Seconds remaining");
-				} else {
-				$("#minutes2").html("Paused");
-			}
-
-			if(countDownNumber == 20){
-				meetingTimer(1,"ding");
-			}
-			if(countDownNumber <= 1){
-				meetingTimer(1,"dingding");
-				$("#minutes2").html("2 Minute Timer");
-				// document.getElementById("minutes2").disabled = false; 
-				$(".timers").removeAttr('disabled');
-				countDownNumber = 120;
-				clearInterval(minutesInterval1);
-			}
-		}, 1000);
-	});
-
-
-
-	$("#seconds90").on("click", function(e){
-		meetingTimer(1,"ding");
-		meetingTimer(1,"dingding");
-		
-		var countDownNumber = 90;
-		var pausePlay = "play";
-		$("#seconds90").html(countDownNumber+" Seconds remaining");
-		// document.getElementById("seconds90").disabled = true; 
-		$(".timers").attr("disabled","true")
-		$("#playpause").on("click",function(e){
-			if(pausePlay == "play"){
-				pausePlay = "pause";
-				$("#playpause").html("Paused");
-			} else {
-				pausePlay = "play";
-			}
-		});
-		$("#reset").on("click",function(e){
-			$("#seconds90").html("1 1/2 Minute Timer");
-			$(".timers").removeAttr('disabled');
-			// document.getElementById("seconds90").disabled = false; 
-			clearInterval(minutesInterval1)
-			countDownNumber = 90;
-			pausePlay = "play";
-		});
-
-		var minutesInterval1 = setInterval(function() {
-			if(pausePlay === "play"){
-				countDownNumber--
-			}
-
-			
-			if(pausePlay == "play"){
-				$("#seconds90").html(countDownNumber+" Seconds remaining");
-				} else {
-				$("#seconds90").html("Paused");
-			}
-
-			if(countDownNumber == 20){
-				meetingTimer(1,"ding");
-			}
-			if(countDownNumber <= 1){
-				meetingTimer(1,"dingding");
-				$("#seconds90").html("1 Minute Timer");
-				// document.getElementById("seconds90").disabled = false; 
-				$(".timers").removeAttr('disabled');
-				countDownNumber = 90;
-				clearInterval(minutesInterval1);
-			}
-		}, 1000);
-	});
+	// $("#minutes1").on("click",function(){
+	// 	console.log("yo?")
+	// 	mtimer.play();
+	// 	$(".timers").attr("disabled","true")
+	// });
+	// $("#seconds90").on("click",function(){
+	// 	console.log(mtimer.countDownNumber()+"mtimer.countDownNumber()")
+	// 	mtimer.play();
+	// 	$(".timers").attr("disabled","true")
+	// });
 
 
 }); // jquery on ready
