@@ -66,7 +66,7 @@
 $().ready(function(){
 		
 	function MeetingTimer ( targetName, countDownNumber, intervalName ) {
-		var miliseconds = 1000;
+		var miliseconds = 100;
 		var passedCountDownNumber = countDownNumber;
 	    this.countDownNumber = countDownNumber;
 	    var isPlaying = "no";
@@ -113,16 +113,24 @@ $().ready(function(){
 
     		}, miliseconds);
 
-	    	window.intervalNameAudio = setTimeout(function() { 
-	    		document.getElementById('ding').play();
-	    		$(targetName).html($(targetName).attr("data-title"));
-	    		$(".timers").removeAttr('disabled');
-	    		$(targetName).removeClass("counting");
-			}, (countDownNumber*miliseconds));
+	  //   	window.intervalNameAudio = setTimeout(function() { 
+	  //   		document.getElementById('ding').play();
+	  //   		$(targetName).html($(targetName).attr("data-title"));
+	  //   		$(".timers").removeAttr('disabled');
+	  //   		$(targetName).removeClass("counting");
+			// }, (countDownNumber*miliseconds));
 
 	    	var numcm = countDownNumber*miliseconds-20*miliseconds
 	    	window.intervalNameAudioWarning = setTimeout(function() { 
 	    		document.getElementById('dingding').play();
+
+	    		window.intervalNameAudio = setTimeout(function() { 
+	    			document.getElementById('ding').play();
+	    			$(targetName).html($(targetName).attr("data-title"));
+	    			$(".timers").removeAttr('disabled');
+	    			$(targetName).removeClass("counting");
+				}, (20*miliseconds));
+
 			}, numcm);
 	    		
 	    }
