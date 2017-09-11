@@ -63,10 +63,8 @@
 
 /* End Drag and Drop Funcs */
 
-	document.getElementById('ding').play();
-	document.getElementById('dingding').play();
 $().ready(function(){
-	
+		
 	function MeetingTimer ( targetName, countDownNumber, intervalName ) {
 		var miliseconds = 1000;
 		var passedCountDownNumber = countDownNumber;
@@ -148,6 +146,8 @@ $().ready(function(){
 	var mtimer120 = new MeetingTimer("#minutes2",120,"minutes3Timer");
 
 	$("#minutes1").on("click",function(){
+		document.getElementById('ding').play();
+		document.getElementById('dingding').play();
 		let methods = Object.getOwnPropertyNames(mtimer60);
 		console.log(methods+mtimer60.currentNumber());
 		if(mtimer60.playStatus() === "no") {
@@ -161,6 +161,8 @@ $().ready(function(){
 	});
 	
 	$("#seconds90").on("click",function(){
+		document.getElementById('ding').play();
+		document.getElementById('dingding').play();
 		let methods = Object.getOwnPropertyNames(mtimer60);
 		console.log(methods+mtimer90.currentNumber());
 		if(mtimer90.playStatus() === "no") {
@@ -174,6 +176,8 @@ $().ready(function(){
 	});
 
 	$("#minutes2").on("click",function(){
+		document.getElementById('ding').play();
+		document.getElementById('dingding').play();
 		let methods = Object.getOwnPropertyNames(mtimer60);
 		console.log(methods+mtimer120.currentNumber());
 		if(mtimer120.playStatus() === "no") {
