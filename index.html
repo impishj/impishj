@@ -25,6 +25,9 @@
           -o-user-select: auto !important;
           user-select: auto !important;
         }
+        .counting {
+        	background-color: #eaeaea;
+        }
         </style>
         <script src="js/vendor/modernizr-2.8.3.min.js"></script>
     </head>
@@ -34,13 +37,23 @@
         <![endif]-->
     <div class="container editing">
         <div class="row controls">
-            <div class="four columns"></div>
-            <button id="minutes1">1 minute timer</button>
-            <button id="seconds90">1 1/2 minute timer</button>
-            <button id="minutes2">2 minute timer</button>
-            <div class="eight columns"> </div>
+            <div class="twelve columns">
+            	<br/>Meeting Timer with 20 seconds left warning v0.01
+            </div>
+
+            <div class="twelve columns">
+            	<button id="minutes1" class="timers" data-title="1 minute timer">1 minute timer</button>
+            	<button id="seconds90"class="timers" data-title="1 1/2 minute timer">1 1/2 minute timer</button>
+            	<button id="minutes2" class="timers" data-title="2 minute timer">2 minute timer</button>
+			</div>
+            <div class="twelve columns">
+            	<!-- <button id="playpause">Pause</button> -->
+            	<button id="reset">Reset All</button>
+            </div>
         </div>
 	</div>
+	<audio id="ding" src="ding.wav" preload="auto"></audio>
+	<audio id="dingding" src="dingding.wav" preload="auto"></audio>
 	    <script src="https://code.jquery.com/jquery-3.2.0.min.js" integrity="sha256-JAW99MJVpJBGcbzEuXk4Az05s/XyDdBomFqNlM3ic+I=" crossorigin="anonymous"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-3.2.0.min.js"><\/script>')</script>
         <script src="js/jquery.min.js"></script>
@@ -50,69 +63,136 @@
 
 /* End Drag and Drop Funcs */
 
+	document.getElementById('ding').play();
+	document.getElementById('dingding').play();
 $().ready(function(){
-var meetingTimer = function(timeDelaySet,audioFileName){
-	console.log(timeDelaySet+"< how long"+audioFileName+"< audioFile")
+	
+	function MeetingTimer ( targetName, countDownNumber, intervalName ) {
+		var miliseconds = 1000;
+		var passedCountDownNumber = countDownNumber;
+	    this.countDownNumber = countDownNumber;
+	    var isPlaying = "no";
+
+	    this.currentNumber = function(){
+	    	return countDownNumber;
+	    }
+	    this.playStatus = function(){
+	    	return isPlaying;
+	    }
+	    this.stop = function(){
+	    	clearInterval(window.intervalName);
+	    	clearInterval(window.intervalNameAudio);
+	    	clearInterval(window.intervalNameAudioWarning);
+	    	isPlaying = "no";
+	    	$(targetName).html("PLAY ("+countDownNumber+" Seconds remaining)");
+	    	$(targetName).removeClass("counting");
+	    	// currentCountDownNumber = countDownNumber;
+	    }
+
+	    this.set = function(){
+	    	
+	    }
+
+	    this.play = function(){
+			$(targetName).html("PAUSE ("+countDownNumber+" Seconds remaining)");	
+	    	isPlaying = "yes";
+	    	$(targetName).addClass("counting");
+
+	    	window.intervalName = setInterval(function() {
+	    		console.log(countDownNumber+"<before");
+	    		if(countDownNumber > 0){
+	    			countDownNumber--;
+	    		}
+	    		console.log(countDownNumber+"<after");
+	    		if(countDownNumber < 1){
+	    			countDownNumber = passedCountDownNumber; // countDownNumber = countDownNum;
+	    			console.log(countDownNumber+"<tested to be more or equal to zero");
+	    			clearInterval(window.intervalName);
+	    			isPlaying = "no";	
+	    			return
+	    		}
+	    		$(targetName).html("PAUSE ("+countDownNumber+" Seconds remaining)");
+
+    		}, miliseconds);
+
+	    	window.intervalNameAudio = setTimeout(function() { 
+	    		document.getElementById('ding').play();
+	    		$(targetName).html($(targetName).attr("data-title"));
+	    		$(".timers").removeAttr('disabled');
+	    		$(targetName).removeClass("counting");
+			}, (countDownNumber*miliseconds));
+
+	    	var numcm = countDownNumber*miliseconds-20*miliseconds
+	    	window.intervalNameAudioWarning = setTimeout(function() { 
+	    		document.getElementById('dingding').play();
+			}, numcm);
+	    		
+	    }
 
 
-	var a1 = new Audio(audioFileName);
-	// var a2 = new Audio('dingdingding.mp3');
-	setTimeout(function() {
-		a1.play();
-	}, timeDelaySet);
-	// 2 minute timer - 120000 ms
-	// 90 sec 90000
-	// 1 minute 60000
-	// 20 seconds 20 000 till end should make another sound
+	    this.reset = function(){
+	    	countDownNumber = passedCountDownNumber;
+	    	var targetTitle = $(targetName).attr("data-title");
+	    	$(targetName).html(targetTitle);
+			clearInterval(window.intervalName);
+	    	clearTimeout(window.intervalNameAudio);
+	    	clearTimeout(window.intervalNameAudioWarning);
+	    	isPlaying = "no";
+	    	$(targetName).removeClass("counting");
+	    }
 
 	}
 
-	// meetingTimer(20000); // cookstep namespace
+	var mtimer60 = new MeetingTimer("#minutes1",60,"minutes1Timer");
+	var mtimer90 = new MeetingTimer("#seconds90",90,"minutes2Timer");
+	var mtimer120 = new MeetingTimer("#minutes2",120,"minutes3Timer");
 
-	$("#minutes1").on("click", function(e){
-		meetingTimer(40000,"ding.wav")
-		meetingTimer(60000,"dingdingding.wav")
-		var countDownNumber = 60;
-		$("#minutes1").html(countDownNumber+" Seconds remaining");
-		setInterval(function() {
-			countDownNumber--
-			$("#minutes1").html(countDownNumber+" Seconds remaining");
-			if(countDownNumber == 0){
-				$("#minutes1").html("1 Minute Timer");
-				clearInterval();
-			}
-		}, 1000);
+	$("#minutes1").on("click",function(){
+		let methods = Object.getOwnPropertyNames(mtimer60);
+		console.log(methods+mtimer60.currentNumber());
+		if(mtimer60.playStatus() === "no") {
+			$(".timers").attr('disabled',true);
+			$("#minutes1").removeAttr('disabled');
+			mtimer60.play();
+		} else {
+			$(".timers").removeAttr('disabled');
+			mtimer60.stop();
+		}
+	});
+	
+	$("#seconds90").on("click",function(){
+		let methods = Object.getOwnPropertyNames(mtimer60);
+		console.log(methods+mtimer90.currentNumber());
+		if(mtimer90.playStatus() === "no") {
+			$(".timers").attr('disabled',true);
+			$("#seconds90").removeAttr('disabled');
+			mtimer90.play();
+		} else {
+			$(".timers").removeAttr('disabled');
+			mtimer90.stop();
+		}
 	});
 
-	$("#minutes2").on("click", function(e){
-		meetingTimer(100000,"ding.wav")
-		meetingTimer(120000,"dingdingding.wav")
-		var countDownNumber = 120;
-		$("#minutes2").html(countDownNumber+" Seconds remaining");
-		setInterval(function() {
-			countDownNumber--
-			$("#minutes2").html(countDownNumber+" Seconds remaining");
-			if(countDownNumber == 0){
-				$("#minutes1").html("2 Minute Timer");
-				clearInterval();
-			}
-		}, 1000);
+	$("#minutes2").on("click",function(){
+		let methods = Object.getOwnPropertyNames(mtimer60);
+		console.log(methods+mtimer120.currentNumber());
+		if(mtimer120.playStatus() === "no") {
+			$(".timers").attr('disabled',true);
+			$("#minutes2").removeAttr('disabled');
+			mtimer120.play();
+		} else {
+			$(".timers").removeAttr('disabled');
+			mtimer120.stop();
+		}
 	});
 
-	$("#seconds90").on("click", function(e){
-		meetingTimer(70000,"ding.wav")
-		meetingTimer(90000,"dingdingding.wav")
-		var countDownNumber = 90;
-		$("#seconds90").html(countDownNumber+" Seconds remaining");
-		setInterval(function() {
-			countDownNumber--
-			$("#seconds90").html(countDownNumber+" Seconds remaining");
-			if(countDownNumber == 0){
-				$("#minutes1").html("1 1/2 Minute Timer");
-				clearInterval();
-			}
-		}, 1000);
+	$("#reset").on("click",function(){
+		$(".timers").removeAttr('disabled');
+		mtimer60.reset();
+		mtimer90.reset();
+		mtimer120.reset();
 	});
+
 
 }); // jquery on ready
 
