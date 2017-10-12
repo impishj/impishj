@@ -41,6 +41,7 @@
 		    -ms-user-select: none;
 		    -o-user-select: none;
 		    user-select: none;
+		    margin-top: 4px;
 		}
 		.vol.selectedVol:before {
 		    content: "";
@@ -55,6 +56,12 @@
 		    border-radius: 100% 100%;
 		    border: solid 1px;
 		    box-shadow: inset -1px -2px 4px rgba(0,0,0,0.6);
+		}
+		button#volume {
+		    float: left;
+		    margin-right: 10px;
+		    border:none;
+    		margin-right: -20px;
 		}
         </style>
         <script src="js/vendor/modernizr-2.8.3.min.js"></script>
@@ -80,6 +87,7 @@
             	<button id="reset">Reset All</button>
             </div>
             <div class="twelve columns volume-control">
+            	<button id="volume" >Volume:</button>
 	            <div href="#" class="vol" data-vol="0.0" data-title="1 minute timer" style="border-radius: 4px 0px 0px 4px;" id="v0">&nbsp;</div>
 	            <div href="#" class="vol" data-vol="0.1" data-title="1 minute timer" id="v1">&nbsp;</div>
 	            <div href="#" class="vol" data-vol="0.2" data-title="1 minute timer" id="v2">&nbsp;</div>
