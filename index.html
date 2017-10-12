@@ -95,22 +95,27 @@
             	<button id="minutes2" class="timers" data-title="2 minute timer">2 minute timer</button>
 			</div>
             <div class="twelve columns">
-            	<!-- <button id="playpause">Pause</button> -->
-            	<button id="reset">Reset All</button>
+            	<button id="testSounds">Test Sounds</button>
             </div>
             <div class="twelve columns volume-control">
             	<span id="volume-label">Volume:</span><br>
-	            <div href="#" class="vol" data-vol="0.0" data-title="1 minute timer" style="border-radius: 4px 0px 0px 4px;" id="v0">&nbsp;</div>
-	            <div href="#" class="vol" data-vol="0.1" data-title="1 minute timer" id="v1">&nbsp;</div>
-	            <div href="#" class="vol" data-vol="0.2" data-title="1 minute timer" id="v2">&nbsp;</div>
-	            <div href="#" class="vol" data-vol="0.3" data-title="1 minute timer" id="v3">&nbsp;</div>
-	            <div href="#" class="vol" data-vol="0.4" data-title="1 minute timer" id="v4">&nbsp;</div>
-	            <div href="#" class="vol" data-vol="0.5" data-title="1 minute timer" id="v5">&nbsp;</div>
-	            <div href="#" class="vol" data-vol="0.6" data-title="1 minute timer" id="v6">&nbsp;</div>
-	            <div href="#" class="vol" data-vol="0.7" data-title="1 minute timer" id="v7">&nbsp;</div>
-	            <div href="#" class="vol" data-vol="0.8" data-title="1 minute timer" id="v8">&nbsp;</div>
-	            <div href="#" class="vol" data-vol="0.9" data-title="1 minute timer" id="v9">&nbsp;</div>
-	            <div href="#" class="vol" data-vol="1" data-title="1 minute timer" id="v10" style="border-radius: 0px 4px 4px 0px;">&nbsp;</div>
+            	<div id="volBox">
+		            <div href="#" class="vol" data-vol="0.0" data-title="1 minute timer" style="border-radius: 4px 0px 0px 4px;" id="v0">&nbsp;</div>
+		            <div href="#" class="vol" data-vol="0.1" data-title="1 minute timer" id="v1">&nbsp;</div>
+		            <div href="#" class="vol" data-vol="0.2" data-title="1 minute timer" id="v2">&nbsp;</div>
+		            <div href="#" class="vol" data-vol="0.3" data-title="1 minute timer" id="v3">&nbsp;</div>
+		            <div href="#" class="vol" data-vol="0.4" data-title="1 minute timer" id="v4">&nbsp;</div>
+		            <div href="#" class="vol" data-vol="0.5" data-title="1 minute timer" id="v5">&nbsp;</div>
+		            <div href="#" class="vol" data-vol="0.6" data-title="1 minute timer" id="v6">&nbsp;</div>
+		            <div href="#" class="vol" data-vol="0.7" data-title="1 minute timer" id="v7">&nbsp;</div>
+		            <div href="#" class="vol" data-vol="0.8" data-title="1 minute timer" id="v8">&nbsp;</div>
+		            <div href="#" class="vol" data-vol="0.9" data-title="1 minute timer" id="v9">&nbsp;</div>
+		            <div href="#" class="vol" data-vol="1" data-title="1 minute timer" id="v10" style="border-radius: 0px 4px 4px 0px;">&nbsp;</div>
+		        </div>
+            </div>
+            <div class="twelve columns">
+            	<br>
+            	<button id="reset">Reset All</button>
             </div>
         </div>
 	</div>
@@ -171,6 +176,7 @@ $().ready(function(){
 	    			clearInterval(window.intervalName);
 			    	clearInterval(window.intervalNameAudio);
 			    	clearInterval(window.intervalNameAudioWarning);
+			    	document.getElementById('end').currentTime = 0;
 	    			document.getElementById('end').play();
 	    			$(targetName).html($(targetName).attr("data-title"));
 	    			$(".timers").removeAttr('disabled');
@@ -191,6 +197,7 @@ $().ready(function(){
 
 		    	
 		    	window.intervalNameAudioWarning = setTimeout(function() { 
+		    		document.getElementById('ring').currentTime = 0;
 		    		document.getElementById('ring').play();
 				}, numcm);
 	    	}
@@ -214,6 +221,17 @@ $().ready(function(){
 	var mtimer60 = new MeetingTimer("#minutes1",60,"minutes1Timer");
 	var mtimer90 = new MeetingTimer("#seconds90",90,"minutes2Timer");
 	var mtimer120 = new MeetingTimer("#minutes2",120,"minutes3Timer");
+
+
+	$("#testSounds").on("click",function(){
+		document.getElementById('ring').currentTime = 0;
+		document.getElementById('silence').currentTime = 0;
+		document.getElementById('end').currentTime = 0;
+		document.getElementById('ring').play();
+		document.getElementById('silence').play();
+		document.getElementById('end').play();
+	})
+
 
 	var resetVol = function(){
 		$(".vol").each(function(index){
