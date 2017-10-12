@@ -28,6 +28,47 @@
         .counting {
         	background-color: #eaeaea;
         }
+/*		.vol {
+		    margin: 0px;
+		    width: 20px;
+		    position: relative;
+		    float: left;
+		    background-color: #bbbbbb;
+			-webkit-user-select: none;
+			-khtml-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
+			-o-user-select: none;
+			user-select: none;
+		}*/
+		.vol {
+		    margin: 0px;
+		    width: 30px;
+		    height: 30px;
+		    position: relative;
+		    float: left;
+		    background-color: #bbbbbb;
+		    -webkit-user-select: none;
+		    -khtml-user-select: none;
+		    -moz-user-select: none;
+		    -ms-user-select: none;
+		    -o-user-select: none;
+		    user-select: none;
+		}
+		.vol.selectedVol:before {
+		    content: "";
+		    margin-left: 10px;
+		    font-size: 20px;
+		    line-height: 0;
+		    background-color: #dedede;
+		    width: 8px;
+		    position: absolute;
+		    top: 10px;
+		    height: 8px;
+		    border-radius: 100% 100%;
+		    border: solid 1px;
+		    box-shadow: inset -1px -2px 4px rgba(0,0,0,0.6);
+		}
         </style>
         <script src="js/vendor/modernizr-2.8.3.min.js"></script>
     </head>
@@ -38,7 +79,7 @@
     <div class="container editing">
         <div class="row controls">
             <div class="twelve columns">
-            	<h2>Meeting Timer with 20 seconds left warning v1</h2>
+            	<h2>Meeting Timer with 20 seconds left warning v1.1</h2>
             	<p>This timer becomes slow and will not sound it's alarm if your device goes to sleep.</p>
             </div>
 
@@ -51,23 +92,34 @@
             	<!-- <button id="playpause">Pause</button> -->
             	<button id="reset">Reset All</button>
             </div>
+            <div class="twelve columns volume-control">
+	            <div href="#" class="vol" data-vol="0.0" data-title="1 minute timer" style="border-radius: 4px 0px 0px 4px;">&nbsp;</div>
+	            <div href="#" class="vol" data-vol="0.1" data-title="1 minute timer">&nbsp;</div>
+	            <div href="#" class="vol" data-vol="0.2" data-title="1 minute timer">&nbsp;</div>
+	            <div href="#" class="vol" data-vol="0.3" data-title="1 minute timer">&nbsp;</div>
+	            <div href="#" class="vol" data-vol="0.4" data-title="1 minute timer">&nbsp;</div>
+	            <div href="#" class="vol" data-vol="0.5" data-title="1 minute timer">&nbsp;</div>
+	            <div href="#" class="vol" data-vol="0.6" data-title="1 minute timer">&nbsp;</div>
+	            <div href="#" class="vol" data-vol="0.7" data-title="1 minute timer">&nbsp;</div>
+	            <div href="#" class="vol" data-vol="0.8" data-title="1 minute timer">&nbsp;</div>
+	            <div href="#" class="vol" data-vol="0.9" data-title="1 minute timer">&nbsp;</div>
+	            <div href="#" class="vol" data-vol="1" data-title="1 minute timer" style="border-radius: 0px 4px 4px 0px;">&nbsp;</div>
+            </div>
         </div>
 	</div>
-	<audio id="ding" src="ding.wav" preload="auto"></audio>
-	<audio id="dingding" src="dingding.wav" preload="auto"></audio>
+	<audio id="silence" src="silence.wav" preload="auto"></audio>
+	<audio id="end" src="end.wav" preload="auto"></audio>
+	<audio id="ring" src="ring.wav" preload="auto"></audio>
 	    <script src="https://code.jquery.com/jquery-3.2.0.min.js" integrity="sha256-JAW99MJVpJBGcbzEuXk4Az05s/XyDdBomFqNlM3ic+I=" crossorigin="anonymous"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-3.2.0.min.js"><\/script>')</script>
         <script src="js/jquery.min.js"></script>
         <script>
 "use strict";
-/* Drag and Drop Functionality */
-
-/* End Drag and Drop Funcs */
 
 $().ready(function(){
-		
+
 	function MeetingTimer ( targetName, countDownNumber, intervalName ) {
-		var miliseconds = 1000;
+		var miliseconds = 200;
 		var passedCountDownNumber = countDownNumber;
 	    this.countDownNumber = countDownNumber;
 	    var isPlaying = "no";
@@ -78,6 +130,9 @@ $().ready(function(){
 	    this.playStatus = function(){
 	    	return isPlaying;
 	    }
+	    // this.volume = function(volumeNumber){
+	    // 	document.getElementById("ring").volume = volumeNumber;
+	    // }
 	    this.stop = function(){
 	    	clearInterval(window.intervalName);
 	    	clearInterval(window.intervalNameAudio);
@@ -85,6 +140,7 @@ $().ready(function(){
 	    	isPlaying = "no";
 	    	$(targetName).html("PLAY ("+countDownNumber+" Seconds remaining)");
 	    	$(targetName).removeClass("counting");
+	    	console.log("STOP CALLED")
 	    	// currentCountDownNumber = countDownNumber;
 	    }
 
@@ -101,31 +157,39 @@ $().ready(function(){
 	    		console.log(countDownNumber+"<before");
 	    		if(countDownNumber > 0){
 	    			countDownNumber--;
+	    			// return
 	    		}
 	    		console.log(countDownNumber+"<after");
-	    		if(countDownNumber < 1){
+	    		if(countDownNumber < 2){
 	    			countDownNumber = passedCountDownNumber; // countDownNumber = countDownNum;
 	    			console.log(countDownNumber+"<tested to be more or equal to zero");
+	    			// return this.stop();
 	    			clearInterval(window.intervalName);
-	    			isPlaying = "no";	
+			    	clearInterval(window.intervalNameAudio);
+			    	clearInterval(window.intervalNameAudioWarning);
+	    			document.getElementById('end').play();
+	    			$(targetName).html($(targetName).attr("data-title"));
+	    			$(".timers").removeAttr('disabled');
+	    			$(targetName).removeClass("counting");
+			    	isPlaying = "no";
+
 	    			return
 	    		}
 	    		$(targetName).html("PAUSE ("+countDownNumber+" Seconds remaining)");
 
     		}, miliseconds);
 
-	    	var numcm = countDownNumber*miliseconds-20*miliseconds
-	    	window.intervalNameAudioWarning = setTimeout(function() { 
-	    		document.getElementById('dingding').play();
 
-	    		window.intervalNameAudio = setTimeout(function() { 
-	    			document.getElementById('ding').play();
-	    			$(targetName).html($(targetName).attr("data-title"));
-	    			$(".timers").removeAttr('disabled');
-	    			$(targetName).removeClass("counting");
-				}, (20*miliseconds));
 
-			}, numcm);
+	    	if(countDownNumber > 20){
+
+		    	var numcm = countDownNumber*miliseconds-20*miliseconds
+
+		    	
+		    	window.intervalNameAudioWarning = setTimeout(function() { 
+		    		document.getElementById('ring').play();
+				}, numcm);
+	    	}
 	    		
 	    }
 
@@ -136,7 +200,9 @@ $().ready(function(){
 	    	$(targetName).html(targetTitle);
 			clearInterval(window.intervalName);
 	    	clearTimeout(window.intervalNameAudio);
-	    	clearTimeout(window.intervalNameAudioWarning);
+			clearTimeout(window.intervalNameAudioWarning);
+	    	// clearTimeout(window.lastTimeout);
+	    	
 	    	isPlaying = "no";
 	    	$(targetName).removeClass("counting");
 	    }
@@ -147,9 +213,33 @@ $().ready(function(){
 	var mtimer90 = new MeetingTimer("#seconds90",90,"minutes2Timer");
 	var mtimer120 = new MeetingTimer("#minutes2",120,"minutes3Timer");
 
+	var resetVol = function(){
+		$(".vol").each(function(index){
+			var newHeight = $(this).attr("data-vol") * 30;
+			var newCss = "inset 0px -"+newHeight+"px 0px rgba(0,0,0,0.4)"
+			$(this).css("box-shadow",newCss)
+			$(this).removeClass("selectedVol")
+		})
+	}
+
+	$(".vol").on("mouseup",function(event){
+		event.preventDefault()
+			document.getElementById("ring").volume = $(this).attr("data-vol");
+			resetVol();
+			var newHeight = $(this).attr("data-vol") * 30;
+			var newCss = "inset 0px -"+newHeight+"px 0px rgba(0,0,0,.5)"
+			$(this).css("box-shadow",newCss)
+			$(this).addClass("selectedVol");
+
+		// console.log($(this).attr("data-vol")+'$(this).attr("vol")')
+	});
+	// $(".vol").on("mouseover",function(event){
+	// 	event.preventDefault()
+	// 	console.log($(this).attr("data-vol")+'$(this).attr("vol")')
+	// });
+
 	$("#minutes1").on("click",function(){
-		document.getElementById('ding').play();
-		document.getElementById('dingding').play();
+		document.getElementById('silence').play();
 		let methods = Object.getOwnPropertyNames(mtimer60);
 		console.log(methods+mtimer60.currentNumber());
 		if(mtimer60.playStatus() === "no") {
@@ -163,8 +253,7 @@ $().ready(function(){
 	});
 	
 	$("#seconds90").on("click",function(){
-		document.getElementById('ding').play();
-		document.getElementById('dingding').play();
+		document.getElementById('silence').play();
 		let methods = Object.getOwnPropertyNames(mtimer60);
 		console.log(methods+mtimer90.currentNumber());
 		if(mtimer90.playStatus() === "no") {
@@ -178,8 +267,7 @@ $().ready(function(){
 	});
 
 	$("#minutes2").on("click",function(){
-		document.getElementById('ding').play();
-		document.getElementById('dingding').play();
+		document.getElementById('silence').play();
 		let methods = Object.getOwnPropertyNames(mtimer60);
 		console.log(methods+mtimer120.currentNumber());
 		if(mtimer120.playStatus() === "no") {
@@ -193,10 +281,8 @@ $().ready(function(){
 	});
 
 	$("#reset").on("click",function(){
-		$(".timers").removeAttr('disabled');
-		mtimer60.reset();
-		mtimer90.reset();
-		mtimer120.reset();
+		document.location.reload(true);
+		// hacky and slow but reliable.
 	});
 
 
