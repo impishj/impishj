@@ -132,6 +132,9 @@ $().ready(function(){
 
 	function MeetingTimer ( targetName, countDownNumber, intervalName ) {
 		var miliseconds = 1000;
+		if(location.href.indexOf("dev") !== -1){
+			miliseconds = 200;
+		}
 		var passedCountDownNumber = countDownNumber;
 	    this.countDownNumber = countDownNumber;
 	    var isPlaying = "no";
@@ -151,10 +154,6 @@ $().ready(function(){
 	    	$(targetName).removeClass("counting");
 	    	console.log("STOP CALLED")
 	    	// currentCountDownNumber = countDownNumber;
-	    }
-
-	    this.set = function(){
-	    	
 	    }
 
 	    this.play = function(){
@@ -310,7 +309,10 @@ $().ready(function(){
 	});
 
 	$("#reset").on("click",function(){
-		document.location.reload(true);
+		mtimer60.reset()
+		mtimer90.reset()
+		mtimer120.reset()
+		// document.location.reload(true);
 		// hacky and slow but reliable.
 	});
 
