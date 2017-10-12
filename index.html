@@ -28,19 +28,6 @@
         .counting {
         	background-color: #eaeaea;
         }
-/*		.vol {
-		    margin: 0px;
-		    width: 20px;
-		    position: relative;
-		    float: left;
-		    background-color: #bbbbbb;
-			-webkit-user-select: none;
-			-khtml-user-select: none;
-			-moz-user-select: none;
-			-ms-user-select: none;
-			-o-user-select: none;
-			user-select: none;
-		}*/
 		.vol {
 		    margin: 0px;
 		    width: 30px;
@@ -93,17 +80,17 @@
             	<button id="reset">Reset All</button>
             </div>
             <div class="twelve columns volume-control">
-	            <div href="#" class="vol" data-vol="0.0" data-title="1 minute timer" style="border-radius: 4px 0px 0px 4px;">&nbsp;</div>
-	            <div href="#" class="vol" data-vol="0.1" data-title="1 minute timer">&nbsp;</div>
-	            <div href="#" class="vol" data-vol="0.2" data-title="1 minute timer">&nbsp;</div>
-	            <div href="#" class="vol" data-vol="0.3" data-title="1 minute timer">&nbsp;</div>
-	            <div href="#" class="vol" data-vol="0.4" data-title="1 minute timer">&nbsp;</div>
-	            <div href="#" class="vol" data-vol="0.5" data-title="1 minute timer">&nbsp;</div>
-	            <div href="#" class="vol" data-vol="0.6" data-title="1 minute timer">&nbsp;</div>
-	            <div href="#" class="vol" data-vol="0.7" data-title="1 minute timer">&nbsp;</div>
-	            <div href="#" class="vol" data-vol="0.8" data-title="1 minute timer">&nbsp;</div>
-	            <div href="#" class="vol" data-vol="0.9" data-title="1 minute timer">&nbsp;</div>
-	            <div href="#" class="vol" data-vol="1" data-title="1 minute timer" style="border-radius: 0px 4px 4px 0px;">&nbsp;</div>
+	            <div href="#" class="vol" data-vol="0.0" data-title="1 minute timer" style="border-radius: 4px 0px 0px 4px;" id="v0">&nbsp;</div>
+	            <div href="#" class="vol" data-vol="0.1" data-title="1 minute timer" id="v1">&nbsp;</div>
+	            <div href="#" class="vol" data-vol="0.2" data-title="1 minute timer" id="v2">&nbsp;</div>
+	            <div href="#" class="vol" data-vol="0.3" data-title="1 minute timer" id="v3">&nbsp;</div>
+	            <div href="#" class="vol" data-vol="0.4" data-title="1 minute timer" id="v4">&nbsp;</div>
+	            <div href="#" class="vol" data-vol="0.5" data-title="1 minute timer" id="v5">&nbsp;</div>
+	            <div href="#" class="vol" data-vol="0.6" data-title="1 minute timer" id="v6">&nbsp;</div>
+	            <div href="#" class="vol" data-vol="0.7" data-title="1 minute timer" id="v7">&nbsp;</div>
+	            <div href="#" class="vol" data-vol="0.8" data-title="1 minute timer" id="v8">&nbsp;</div>
+	            <div href="#" class="vol" data-vol="0.9" data-title="1 minute timer" id="v9">&nbsp;</div>
+	            <div href="#" class="vol" data-vol="1" data-title="1 minute timer" id="v10" style="border-radius: 0px 4px 4px 0px;">&nbsp;</div>
             </div>
         </div>
 	</div>
@@ -130,9 +117,6 @@ $().ready(function(){
 	    this.playStatus = function(){
 	    	return isPlaying;
 	    }
-	    // this.volume = function(volumeNumber){
-	    // 	document.getElementById("ring").volume = volumeNumber;
-	    // }
 	    this.stop = function(){
 	    	clearInterval(window.intervalName);
 	    	clearInterval(window.intervalNameAudio);
@@ -201,8 +185,6 @@ $().ready(function(){
 			clearInterval(window.intervalName);
 	    	clearTimeout(window.intervalNameAudio);
 			clearTimeout(window.intervalNameAudioWarning);
-	    	// clearTimeout(window.lastTimeout);
-	    	
 	    	isPlaying = "no";
 	    	$(targetName).removeClass("counting");
 	    }
@@ -222,21 +204,29 @@ $().ready(function(){
 		})
 	}
 
-	$(".vol").on("mouseup",function(event){
+	$(".vol").on("click",function(event){
 		event.preventDefault()
-			document.getElementById("ring").volume = $(this).attr("data-vol");
-			resetVol();
-			var newHeight = $(this).attr("data-vol") * 30;
-			var newCss = "inset 0px -"+newHeight+"px 0px rgba(0,0,0,.5)"
-			$(this).css("box-shadow",newCss)
-			$(this).addClass("selectedVol");
-
-		// console.log($(this).attr("data-vol")+'$(this).attr("vol")')
+		document.getElementById("ring").volume = $(this).attr("data-vol");
+		resetVol();
+		var newHeight = $(this).attr("data-vol") * 30;
+		var newCss = "inset 0px -"+newHeight+"px 0px rgba(0,0,0,.5)"
+		$(this).css("box-shadow",newCss)
+		$(this).addClass("selectedVol");
+		// var volumeControl = [];
+		// volumeControl.push($(this).attr("id"))
+		// volumeControl.push($(this).attr("data-vol"))
+		// volumeControl.join(",")
+		localStorage.setItem('volumeControl',$(this).attr("id"));
+		
 	});
-	// $(".vol").on("mouseover",function(event){
-	// 	event.preventDefault()
-	// 	console.log($(this).attr("data-vol")+'$(this).attr("vol")')
-	// });
+		
+	if(localStorage.getItem('volumeControl')){
+		console.log(localStorage.getItem('volumeControl'))
+		$("#"+localStorage.getItem('volumeControl')).click();
+	} else {
+		$(".vol").last().click();
+	}
+
 
 	$("#minutes1").on("click",function(){
 		document.getElementById('silence').play();
