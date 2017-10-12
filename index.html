@@ -222,14 +222,15 @@ $().ready(function(){
 	var mtimer90 = new MeetingTimer("#seconds90",90,"minutes2Timer");
 	var mtimer120 = new MeetingTimer("#minutes2",120,"minutes3Timer");
 
-
 	$("#testSounds").on("click",function(){
+		clearTimeout(window.testTime);
 		document.getElementById('ring').currentTime = 0;
-		document.getElementById('silence').currentTime = 0;
-		document.getElementById('end').currentTime = 0;
 		document.getElementById('ring').play();
-		document.getElementById('silence').play();
-		document.getElementById('end').play();
+		var dur = document.getElementById('ring').duration;
+		window.testTime = setTimeout(function(){
+				document.getElementById('end').currentTime = 0;
+				document.getElementById('end').play();
+			},dur*1000);
 	})
 
 
