@@ -874,191 +874,230 @@ void 0!==c?null===c?void r.removeAttr(a,b):e&&"set"in e&&void 0!==(d=e.set(a,c,b
 
 $().ready(function(){
 
-	function MeetingTimer ( targetName, countDownNumber, intervalName ) {
-		var miliseconds = 1000;
-		if(location.href.indexOf("dev") !== -1){
-			miliseconds = 200;
-		}
-		var passedCountDownNumber = countDownNumber;
-	    this.countDownNumber = countDownNumber;
-	    var isPlaying = "no";
 
-	    this.currentNumber = function(){
-	    	return countDownNumber;
-	    }
-	    this.playStatus = function(){
-	    	return isPlaying;
-	    }
-	    this.stop = function(){
-	    	clearInterval(window.intervalName);
-	    	clearInterval(window.intervalNameAudio);
-	    	clearInterval(window.intervalNameAudioWarning);
-	    	isPlaying = "no";
-	    	$(targetName).html("PLAY ("+countDownNumber+" Seconds remaining)");
-	    	$(targetName).removeClass("counting");
-	    	console.log("STOP CALLED")
-	    	// currentCountDownNumber = countDownNumber;
-	    }
+// new timer core
 
-	    this.play = function(){
-			$(targetName).html("PAUSE ("+countDownNumber+" Seconds remaining)");	
-	    	isPlaying = "yes";
-	    	$(targetName).addClass("counting");
+var start = +(new Date);
+var warning = 2;
+var end = 5;
+var haveWarned = "";
 
-	    	window.intervalName = setInterval(function() {
-	    		console.log(countDownNumber+"<before");
-	    		if(countDownNumber > 0){
-	    			countDownNumber--;
-	    			// return
-	    		}
-	    		console.log(countDownNumber+"<after");
-	    		if(countDownNumber < 2){
-	    			countDownNumber = passedCountDownNumber; // countDownNumber = countDownNum;
-	    			console.log(countDownNumber+"<tested to be more or equal to zero");
-	    			// return this.stop();
-	    			clearInterval(window.intervalName);
-			    	clearInterval(window.intervalNameAudio);
-			    	clearInterval(window.intervalNameAudioWarning);
-			    	document.getElementById('end').currentTime = 0;
-	    			document.getElementById('end').play();
-	    			$(targetName).html($(targetName).attr("data-title"));
-	    			$(".timers").removeAttr('disabled');
-	    			$(targetName).removeClass("counting");
-			    	isPlaying = "no";
+var startTimer = function(){
+  return window.timer = setInterval(function() {
+    var now = +(new Date);
+    
+    document.getElementById("time").innerHTML = Math.round((now - start)/1000);
+    
+    if(Math.round((now - start)/1000) > warning && haveWarned == false){
+    document.getElementById("time").innerHTML += "5 second warning"
+    };
+    
+    if( Math.round((now - start)/1000) > end ){
+    console.log("helloooooo")
+    stopTimer();
+    haveWarned = "";
+    };
+    
+  }, 1000);   
+}
+var stopTimer = function(){
+    clearInterval(window.timer);
+}
 
-	    			return
-	    		}
-	    		$(targetName).html("PAUSE ("+countDownNumber+" Seconds remaining)");
+startTimer()
+var $el = document.getElementById("restartTimer");
 
-    		}, miliseconds);
+$el.addEventListener("click", function(){
+    clearInterval(timer);
+    start = +(new Date);
+    haveWarned = "";
+    startTimer();
+}, false);
+	// function MeetingTimer ( targetName, countDownNumber, intervalName ) {
+	// 	var miliseconds = 1000;
+	// 	if(location.href.indexOf("dev") !== -1){
+	// 		miliseconds = 200;
+	// 	}
+	// 	var passedCountDownNumber = countDownNumber;
+	//     this.countDownNumber = countDownNumber;
+	//     var isPlaying = "no";
+
+	//     this.currentNumber = function(){
+	//     	return countDownNumber;
+	//     }
+	//     this.playStatus = function(){
+	//     	return isPlaying;
+	//     }
+	//     this.stop = function(){
+	//     	clearInterval(window.intervalName);
+	//     	clearInterval(window.intervalNameAudio);
+	//     	clearInterval(window.intervalNameAudioWarning);
+	//     	isPlaying = "no";
+	//     	$(targetName).html("PLAY ("+countDownNumber+" Seconds remaining)");
+	//     	$(targetName).removeClass("counting");
+	//     	console.log("STOP CALLED")
+	//     	// currentCountDownNumber = countDownNumber;
+	//     }
+
+	//     this.play = function(){
+	// 		$(targetName).html("PAUSE ("+countDownNumber+" Seconds remaining)");	
+	//     	isPlaying = "yes";
+	//     	$(targetName).addClass("counting");
+
+	//     	window.intervalName = setInterval(function() {
+	//     		console.log(countDownNumber+"<before");
+	//     		if(countDownNumber > 0){
+	//     			countDownNumber--;
+	//     			// return
+	//     		}
+	//     		console.log(countDownNumber+"<after");
+	//     		if(countDownNumber < 2){
+	//     			countDownNumber = passedCountDownNumber; // countDownNumber = countDownNum;
+	//     			console.log(countDownNumber+"<tested to be more or equal to zero");
+	//     			// return this.stop();
+	//     			clearInterval(window.intervalName);
+	// 		    	clearInterval(window.intervalNameAudio);
+	// 		    	clearInterval(window.intervalNameAudioWarning);
+	// 		    	document.getElementById('end').currentTime = 0;
+	//     			document.getElementById('end').play();
+	//     			$(targetName).html($(targetName).attr("data-title"));
+	//     			$(".timers").removeAttr('disabled');
+	//     			$(targetName).removeClass("counting");
+	// 		    	isPlaying = "no";
+
+	//     			return
+	//     		}
+	//     		$(targetName).html("PAUSE ("+countDownNumber+" Seconds remaining)");
+
+ //    		}, miliseconds);
 
 
 
-	    	if(countDownNumber > 20){
+	//     	if(countDownNumber > 20){
 
-		    	var numcm = countDownNumber*miliseconds-20*miliseconds
+	// 	    	var numcm = countDownNumber*miliseconds-20*miliseconds
 
 		    	
-		    	window.intervalNameAudioWarning = setTimeout(function() { 
-		    		document.getElementById('ring').currentTime = 0;
-		    		document.getElementById('ring').play();
-				}, numcm);
-	    	}
+	// 	    	window.intervalNameAudioWarning = setTimeout(function() { 
+	// 	    		document.getElementById('ring').currentTime = 0;
+	// 	    		document.getElementById('ring').play();
+	// 			}, numcm);
+	//     	}
 	    		
-	    }
+	//     }
 
 
-	    this.reset = function(){
-	    	countDownNumber = passedCountDownNumber;
-	    	var targetTitle = $(targetName).attr("data-title");
-	    	$(targetName).html(targetTitle);
-			clearInterval(window.intervalName);
-	    	clearTimeout(window.intervalNameAudio);
-			clearTimeout(window.intervalNameAudioWarning);
-	    	isPlaying = "no";
-	    	$(targetName).removeClass("counting");
-	    }
+	//     this.reset = function(){
+	//     	countDownNumber = passedCountDownNumber;
+	//     	var targetTitle = $(targetName).attr("data-title");
+	//     	$(targetName).html(targetTitle);
+	// 		clearInterval(window.intervalName);
+	//     	clearTimeout(window.intervalNameAudio);
+	// 		clearTimeout(window.intervalNameAudioWarning);
+	//     	isPlaying = "no";
+	//     	$(targetName).removeClass("counting");
+	//     }
 
-	}
+	// }
 
-	var mtimer60 = new MeetingTimer("#minutes1",60,"minutes1Timer");
-	var mtimer90 = new MeetingTimer("#seconds90",90,"minutes2Timer");
-	var mtimer120 = new MeetingTimer("#minutes2",120,"minutes3Timer");
+	// var mtimer60 = new MeetingTimer("#minutes1",60,"minutes1Timer");
+	// var mtimer90 = new MeetingTimer("#seconds90",90,"minutes2Timer");
+	// var mtimer120 = new MeetingTimer("#minutes2",120,"minutes3Timer");
 
-	$("#testSounds").on("click",function(){
-		clearTimeout(window.testTime);
-		document.getElementById('ring').currentTime = 0;
-		document.getElementById('ring').play();
-		var dur = document.getElementById('ring').duration;
-		window.testTime = setTimeout(function(){
-				document.getElementById('end').currentTime = 0;
-				document.getElementById('end').play();
-			},dur*1000);
-	})
+	// $("#testSounds").on("click",function(){
+	// 	clearTimeout(window.testTime);
+	// 	document.getElementById('ring').currentTime = 0;
+	// 	document.getElementById('ring').play();
+	// 	var dur = document.getElementById('ring').duration;
+	// 	window.testTime = setTimeout(function(){
+	// 			document.getElementById('end').currentTime = 0;
+	// 			document.getElementById('end').play();
+	// 		},dur*1000);
+	// })
 
 
-	var resetVol = function(){
-		$(".vol").each(function(index){
-			var newHeight = $(this).attr("data-vol") * 30;
-			var newCss = "inset 0px -"+newHeight+"px 0px rgba(0,0,0,0.4)"
-			$(this).css("box-shadow",newCss)
-			$(this).removeClass("selectedVol")
-		})
-	}
+	// var resetVol = function(){
+	// 	$(".vol").each(function(index){
+	// 		var newHeight = $(this).attr("data-vol") * 30;
+	// 		var newCss = "inset 0px -"+newHeight+"px 0px rgba(0,0,0,0.4)"
+	// 		$(this).css("box-shadow",newCss)
+	// 		$(this).removeClass("selectedVol")
+	// 	})
+	// }
 
-	$(".vol").on("click",function(event){
-		event.preventDefault()
-		document.getElementById("ring").volume = $(this).attr("data-vol");
-		resetVol();
-		var newHeight = $(this).attr("data-vol") * 30;
-		var newCss = "inset 0px -"+newHeight+"px 0px rgba(0,0,0,.5)"
-		$(this).css("box-shadow",newCss)
-		$(this).addClass("selectedVol");
-		// var volumeControl = [];
-		// volumeControl.push($(this).attr("id"))
-		// volumeControl.push($(this).attr("data-vol"))
-		// volumeControl.join(",")
-		localStorage.setItem('volumeControl',$(this).attr("id"));
+	// $(".vol").on("click",function(event){
+	// 	event.preventDefault()
+	// 	document.getElementById("ring").volume = $(this).attr("data-vol");
+	// 	resetVol();
+	// 	var newHeight = $(this).attr("data-vol") * 30;
+	// 	var newCss = "inset 0px -"+newHeight+"px 0px rgba(0,0,0,.5)"
+	// 	$(this).css("box-shadow",newCss)
+	// 	$(this).addClass("selectedVol");
+	// 	// var volumeControl = [];
+	// 	// volumeControl.push($(this).attr("id"))
+	// 	// volumeControl.push($(this).attr("data-vol"))
+	// 	// volumeControl.join(",")
+	// 	localStorage.setItem('volumeControl',$(this).attr("id"));
 		
-	});
+	// });
 		
-	if(localStorage.getItem('volumeControl')){
-		console.log(localStorage.getItem('volumeControl'))
-		$("#"+localStorage.getItem('volumeControl')).click();
-	} else {
-		$(".vol").last().click();
-	}
+	// if(localStorage.getItem('volumeControl')){
+	// 	console.log(localStorage.getItem('volumeControl'))
+	// 	$("#"+localStorage.getItem('volumeControl')).click();
+	// } else {
+	// 	$(".vol").last().click();
+	// }
 
 
-	$("#minutes1").on("click",function(){
-		document.getElementById('silence').play();
-		let methods = Object.getOwnPropertyNames(mtimer60);
-		console.log(methods+mtimer60.currentNumber());
-		if(mtimer60.playStatus() === "no") {
-			$(".timers").attr('disabled',true);
-			$("#minutes1").removeAttr('disabled');
-			mtimer60.play();
-		} else {
-			$(".timers").removeAttr('disabled');
-			mtimer60.stop();
-		}
-	});
+	// $("#minutes1").on("click",function(){
+	// 	document.getElementById('silence').play();
+	// 	let methods = Object.getOwnPropertyNames(mtimer60);
+	// 	console.log(methods+mtimer60.currentNumber());
+	// 	if(mtimer60.playStatus() === "no") {
+	// 		$(".timers").attr('disabled',true);
+	// 		$("#minutes1").removeAttr('disabled');
+	// 		mtimer60.play();
+	// 	} else {
+	// 		$(".timers").removeAttr('disabled');
+	// 		mtimer60.stop();
+	// 	}
+	// });
 	
-	$("#seconds90").on("click",function(){
-		document.getElementById('silence').play();
-		let methods = Object.getOwnPropertyNames(mtimer60);
-		console.log(methods+mtimer90.currentNumber());
-		if(mtimer90.playStatus() === "no") {
-			$(".timers").attr('disabled',true);
-			$("#seconds90").removeAttr('disabled');
-			mtimer90.play();
-		} else {
-			$(".timers").removeAttr('disabled');
-			mtimer90.stop();
-		}
-	});
+	// $("#seconds90").on("click",function(){
+	// 	document.getElementById('silence').play();
+	// 	let methods = Object.getOwnPropertyNames(mtimer60);
+	// 	console.log(methods+mtimer90.currentNumber());
+	// 	if(mtimer90.playStatus() === "no") {
+	// 		$(".timers").attr('disabled',true);
+	// 		$("#seconds90").removeAttr('disabled');
+	// 		mtimer90.play();
+	// 	} else {
+	// 		$(".timers").removeAttr('disabled');
+	// 		mtimer90.stop();
+	// 	}
+	// });
 
-	$("#minutes2").on("click",function(){
-		document.getElementById('silence').play();
-		let methods = Object.getOwnPropertyNames(mtimer60);
-		console.log(methods+mtimer120.currentNumber());
-		if(mtimer120.playStatus() === "no") {
-			$(".timers").attr('disabled',true);
-			$("#minutes2").removeAttr('disabled');
-			mtimer120.play();
-		} else {
-			$(".timers").removeAttr('disabled');
-			mtimer120.stop();
-		}
-	});
+	// $("#minutes2").on("click",function(){
+	// 	document.getElementById('silence').play();
+	// 	let methods = Object.getOwnPropertyNames(mtimer60);
+	// 	console.log(methods+mtimer120.currentNumber());
+	// 	if(mtimer120.playStatus() === "no") {
+	// 		$(".timers").attr('disabled',true);
+	// 		$("#minutes2").removeAttr('disabled');
+	// 		mtimer120.play();
+	// 	} else {
+	// 		$(".timers").removeAttr('disabled');
+	// 		mtimer120.stop();
+	// 	}
+	// });
 
-	$("#reset").on("click",function(){
-		mtimer60.reset()
-		mtimer90.reset()
-		mtimer120.reset()
-		// document.location.reload(true);
-		// hacky and slow but reliable.
-	});
+	// $("#reset").on("click",function(){
+	// 	mtimer60.reset()
+	// 	mtimer90.reset()
+	// 	mtimer120.reset()
+	// 	// document.location.reload(true);
+	// 	// hacky and slow but reliable.
+	// });
 
 
 }); // jquery on ready
