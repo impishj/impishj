@@ -875,8 +875,18 @@ void 0!==c?null===c?void r.removeAttr(a,b):e&&"set"in e&&void 0!==(d=e.set(a,c,b
 
 $().ready(function(){
 
-
-  $("#prox").html(window.AppInventor.getWebViewString())
+if(window.AppInventor.getWebViewString()){
+  setInterval(function(){
+    // .html(window.AppInventor.getWebViewString())
+    var nearFar = parseInt(window.AppInventor.getWebViewString())
+    if(nearFar < 3){ 
+      $("#prox").html("we're close");
+    } else {
+      $("#prox").html("far");
+    }
+    }
+    ,500);
+}
 	function MeetingTimer ( targetName, countDownNumber, intervalName ) {
 		var miliseconds = 1000;
 		if(location.href.indexOf("dev") !== -1){
