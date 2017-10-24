@@ -831,6 +831,7 @@ there.
             <div class="twelve columns">
             	<br>
             	<button id="reset">Reset All</button>
+              <button id="prox"></button>
             </div>
         </div>
 	</div>
@@ -874,6 +875,8 @@ void 0!==c?null===c?void r.removeAttr(a,b):e&&"set"in e&&void 0!==(d=e.set(a,c,b
 
 $().ready(function(){
 
+
+  $("#prox").html(window.AppInventor.getWebViewString())
 	function MeetingTimer ( targetName, countDownNumber, intervalName ) {
 		var miliseconds = 1000;
 		if(location.href.indexOf("dev") !== -1){
