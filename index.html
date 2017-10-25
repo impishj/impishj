@@ -790,6 +790,9 @@ there.
 		    box-sizing: border-box;
 		    font-family: "Raleway", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
 		}
+    #volBox{
+      display: flex;
+    }
         </style>
         <script src="js/vendor/modernizr-2.8.3.min.js"></script>
     </head>
@@ -874,8 +877,8 @@ void 0!==c?null===c?void r.removeAttr(a,b):e&&"set"in e&&void 0!==(d=e.set(a,c,b
 "use strict";
 
 $().ready(function(){
-
-if(window.AppInventor.getWebViewString()){
+console.log("hhheeeyyy")
+if(window.AppInventor){
   setInterval(function(){
     // .html(window.AppInventor.getWebViewString())
     var nearFar = parseInt(window.AppInventor.getWebViewString())
