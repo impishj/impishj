@@ -878,7 +878,13 @@ void 0!==c?null===c?void r.removeAttr(a,b):e&&"set"in e&&void 0!==(d=e.set(a,c,b
 
 $().ready(function(){
 console.log("hhheeeyyy")
+function AppInventor(){
+  this.getWebViewString = function(){
+    return "hey this wuld normally be a string passed around and stuff"
+  }
+}
 if(window.AppInventor){
+  var window.AppInventor = new AppInventor();
   setInterval(function(){
     // .html(window.AppInventor.getWebViewString())
     var nearFar = parseInt(window.AppInventor.getWebViewString())
