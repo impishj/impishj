@@ -913,7 +913,8 @@ var startTimer = function(target,warningArg,endArg,restartArg){
     document.getElementById('end').play();
     stopTimer()
     $("#"+target).removeClass("playing")
-    $(this).attr("data-valueAtPaused","")
+    $(this).removeAttr("data-valueAtPaused")
+    $(".timers").removeAttr('disabled');
     };
     
   }, 1000);   
@@ -1122,10 +1123,6 @@ document.getElementById("minutes2").addEventListener("click", function(){
     var newCss = "inset 0px -"+newHeight+"px 0px rgba(0,0,0,.5)"
     $(this).css("box-shadow",newCss)
     $(this).addClass("selectedVol");
-    // var volumeControl = [];
-    // volumeControl.push($(this).attr("id"))
-    // volumeControl.push($(this).attr("data-vol"))
-    // volumeControl.join(",")
     localStorage.setItem('volumeControl',$(this).attr("id"));
     
   });
