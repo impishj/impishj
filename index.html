@@ -741,57 +741,54 @@ there.
           user-select: auto !important;
         }
         .counting {
-        	background-color: #eaeaea;
+          background-color: #eaeaea;
         }
-		.vol {
-		    margin: 0px;
-		    width: 29px;
-		    height: 30px;
-		    position: relative;
-		    float: left;
-		    background-color: #bbbbbb;
-		    -webkit-user-select: none;
-		    -khtml-user-select: none;
-		    -moz-user-select: none;
-		    -ms-user-select: none;
-		    -o-user-select: none;
-		    user-select: none;
-		    margin-top: 4px;
-		}
-		.vol.selectedVol:before {
-		    content: "";
-		    margin-left: 10px;
-		    font-size: 20px;
-		    line-height: 0;
-		    background-color: #dedede;
-		    width: 8px;
-		    position: absolute;
-		    top: 10px;
-		    height: 8px;
-		    border-radius: 100% 100%;
-		    border: solid 1px;
-		    box-shadow: inset -1px -2px 4px rgba(0,0,0,0.6);
-		}
-		#volume-label{
-			display: inline-block;
-		    height: 38px;
-		    padding: 0 30px;
-		    padding-left: 0px;
-		    padding-top: 0px;
-		    color: #555;
-		    text-align: center;
-		    font-size: 11px;
-		    font-weight: 600;
-		    line-height: 38px;
-		    letter-spacing: .1rem;
-		    text-transform: uppercase;
-		    text-decoration: none;
-		    white-space: nowrap;
-		    box-sizing: border-box;
-		    font-family: "Raleway", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
-		}
-    #volBox{
-      display: flex;
+    .vol {
+        margin: 0px;
+        width: 29px;
+        height: 30px;
+        position: relative;
+        float: left;
+        background-color: #bbbbbb;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        -o-user-select: none;
+        user-select: none;
+        margin-top: 4px;
+    }
+    .vol.selectedVol:before {
+        content: "";
+        margin-left: 10px;
+        font-size: 20px;
+        line-height: 0;
+        background-color: #dedede;
+        width: 8px;
+        position: absolute;
+        top: 10px;
+        height: 8px;
+        border-radius: 100% 100%;
+        border: solid 1px;
+        box-shadow: inset -1px -2px 4px rgba(0,0,0,0.6);
+    }
+    #volume-label{
+      display: inline-block;
+        height: 38px;
+        padding: 0 30px;
+        padding-left: 0px;
+        padding-top: 0px;
+        color: #555;
+        text-align: center;
+        font-size: 11px;
+        font-weight: 600;
+        line-height: 38px;
+        letter-spacing: .1rem;
+        text-transform: uppercase;
+        text-decoration: none;
+        white-space: nowrap;
+        box-sizing: border-box;
+        font-family: "Raleway", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
     }
         </style>
         <script src="js/vendor/modernizr-2.8.3.min.js"></script>
@@ -803,44 +800,42 @@ there.
     <div class="container editing">
         <div class="row controls">
             <div class="twelve columns">
-            	<h2>Meeting Timer with 20 seconds left warning v1.11</h2>
-            	<p>This timer becomes slow and will not sound it's alarm if your device goes to sleep.</p>
+              <h2>Meeting Timer with 20 second warning v1.21</h2>
+              <p>This app is designed to be used with your phone/computer awake, if it sleeps the timers will likely not work or work inconsistantly.</p>
             </div>
 
             <div class="twelve columns">
-            	<button id="minutes1" class="timers" data-title="1 minute timer">1 minute timer</button>
-            	<button id="seconds90"class="timers" data-title="1 1/2 minute timer">1 1/2 minute timer</button>
-            	<button id="minutes2" class="timers" data-title="2 minute timer">2 minute timer</button>
-			</div>
+              <button id="minutes1" class="timers" data-title="1 minute timer">1 minute timer</button>
+              <button id="seconds90" class="timers" data-title="1 1/2 minute timer">1 1/2 minute timer</button>
+              <button id="minutes2" class="timers" data-title="2 minute timer">2 minute timer</button>
+      </div>
             <div class="twelve columns">
-            	<button id="testSounds">Test Sounds</button>
+              <button id="testSounds">Test Sounds</button>
             </div>
             <div class="twelve columns volume-control">
-            	<span id="volume-label">Volume:</span><br>
-            	<div id="volBox">
-		            <div href="#" class="vol" data-vol="0.0" data-title="1 minute timer" style="border-radius: 4px 0px 0px 4px;" id="v0">&nbsp;</div>
-		            <div href="#" class="vol" data-vol="0.1" data-title="1 minute timer" id="v1">&nbsp;</div>
-		            <div href="#" class="vol" data-vol="0.2" data-title="1 minute timer" id="v2">&nbsp;</div>
-		            <div href="#" class="vol" data-vol="0.3" data-title="1 minute timer" id="v3">&nbsp;</div>
-		            <div href="#" class="vol" data-vol="0.4" data-title="1 minute timer" id="v4">&nbsp;</div>
-		            <div href="#" class="vol" data-vol="0.5" data-title="1 minute timer" id="v5">&nbsp;</div>
-		            <div href="#" class="vol" data-vol="0.6" data-title="1 minute timer" id="v6">&nbsp;</div>
-		            <div href="#" class="vol" data-vol="0.7" data-title="1 minute timer" id="v7">&nbsp;</div>
-		            <div href="#" class="vol" data-vol="0.8" data-title="1 minute timer" id="v8">&nbsp;</div>
-		            <div href="#" class="vol" data-vol="0.9" data-title="1 minute timer" id="v9">&nbsp;</div>
-		            <div href="#" class="vol" data-vol="1" data-title="1 minute timer" id="v10" style="border-radius: 0px 4px 4px 0px;">&nbsp;</div>
-		        </div>
+              <span id="volume-label">Volume:</span><br>
+              <div id="volBox">
+                <div href="#" class="vol" data-vol="0.0" data-title="1 minute timer" style="border-radius: 4px 0px 0px 4px;" id="v0">&nbsp;</div>
+                <div href="#" class="vol" data-vol="0.1" data-title="1 minute timer" id="v1">&nbsp;</div>
+                <div href="#" class="vol" data-vol="0.2" data-title="1 minute timer" id="v2">&nbsp;</div>
+                <div href="#" class="vol" data-vol="0.3" data-title="1 minute timer" id="v3">&nbsp;</div>
+                <div href="#" class="vol" data-vol="0.4" data-title="1 minute timer" id="v4">&nbsp;</div>
+                <div href="#" class="vol" data-vol="0.5" data-title="1 minute timer" id="v5">&nbsp;</div>
+                <div href="#" class="vol" data-vol="0.6" data-title="1 minute timer" id="v6">&nbsp;</div>
+                <div href="#" class="vol" data-vol="0.7" data-title="1 minute timer" id="v7">&nbsp;</div>
+                <div href="#" class="vol" data-vol="0.8" data-title="1 minute timer" id="v8">&nbsp;</div>
+                <div href="#" class="vol" data-vol="0.9" data-title="1 minute timer" id="v9">&nbsp;</div>
+                <div href="#" class="vol" data-vol="1" data-title="1 minute timer" id="v10" style="border-radius: 0px 4px 4px 0px;">&nbsp;</div>
+            </div>
             </div>
             <div class="twelve columns">
-            	<br>
-            	<button id="reset">Reset All</button>
-              <button id="prox"></button>
+              <br>
+              <button id="reset">Reset All</button>
             </div>
         </div>
-	</div>
-	<audio id="silence" src="silence.wav" preload="auto"></audio>
-	<audio id="end" src="end.wav" preload="auto"></audio>
-	<audio id="ring" src="ring.wav" preload="auto"></audio>
+  </div>
+  <audio id="end" src="end.wav" preload="auto"></audio>
+  <audio id="ring" src="ring.wav" preload="auto"></audio>
         <script src="js/jquery.min.js"></script>
         <script>
         /*! jQuery v3.1.1 | (c) jQuery Foundation | jquery.org/license */
@@ -877,210 +872,271 @@ void 0!==c?null===c?void r.removeAttr(a,b):e&&"set"in e&&void 0!==(d=e.set(a,c,b
 "use strict";
 
 $().ready(function(){
-console.log("hhheeeyyy")
-function AppInventor(){
-  this.getWebViewString = function(){
-    return "hey this wuld normally be a string passed around and stuff"
+
+
+// new timer core
+
+var start = +(new Date);
+var warning = 2;
+var end = 5;
+var haveWarned = false;
+var timeIsRunning = false;
+var startTimer = function(target,warningArg,endArg,restartArg){
+  
+  if(endArg){         end = endArg                  }
+  
+  if(warningArg){     warning = warningArg          }
+  
+  if(restartArg){     start = +(new Date)
+                      haveWarned = false            
+
+  } else {            start = +(new Date)           }
+
+  return window.mTimer = setInterval(function() {
+    timeIsRunning = true
+    var now = +(new Date)
+    
+    document.getElementById(target).innerHTML = ( end - Math.round((now - start)/1000) ) +" seconds left"
+    $("#"+target).attr("data-valueAtPaused",( end - Math.round((now - start)/1000) ) )
+
+    console.log(haveWarned+"<< warned | seconds left >>"+( end - Math.round((now - start)/1000) )+"   warning at>>"+warning)
+    if( (end - Math.round((now - start)/1000) ) < warning && haveWarned === false){
+      console.log(Math.round((now - start)/1000)+"Math.round((now - start)/1000)")
+      document.getElementById("ring").volume = $(".vol.selectedVol").attr("data-vol")
+      document.getElementById('ring').play();
+      haveWarned = true
+    };
+
+    if( ( end - Math.round((now - start)/1000) ) < 1 ){
+    document.getElementById(target).innerHTML = $("#"+target).attr("data-title")
+    document.getElementById("end").volume = $(".vol.selectedVol").attr("data-vol")
+    document.getElementById('end').play();
+    stopTimer()
+    $("#"+target).removeClass("playing")
+    $(this).attr("data-valueAtPaused","")
+    };
+    
+  }, 1000);   
+}
+
+var stopTimer = function(){
+    if(window.mTimer){
+      clearInterval(window.mTimer);
+    }
+
+}
+var resetTimer = function(){
+    stopTimer()
+    $("#minutes1").html( $("#minutes1").attr("data-title") )
+    $("#minutes2").html( $("#minutes2").attr("data-title") )
+    $("#seconds90").html( $("#seconds90").attr("data-title") )
+    $("#minutes1").attr("data-valueAtPaused",60)
+    $("#minutes2").attr("data-valueAtPaused",120)
+    $("#seconds90").attr("data-valueAtPaused",90)
+    $("#minutes1").removeClass("paused")
+    $("#minutes2").removeClass("paused")
+    $("#seconds90").removeClass("paused")
+    $("#minutes1").removeClass("playing")
+    $("#minutes2").removeClass("playing")
+    $("#seconds90").removeClass("playing")
+    $("#minutes1").removeAttr("disabled")
+    $("#minutes2").removeAttr("disabled")
+    $("#seconds90").removeAttr("disabled")
+
+    
+}
+
+// startTimer("minutes1",4,6,"yes")
+
+var $el = document.getElementById("reset");
+
+$el.addEventListener("click", function(){
+    resetTimer()
+}, false);
+
+document.getElementById("minutes1").addEventListener("click", function(){
+  // hack so android will actually play audio
+  document.getElementById("ring").volume = 0
+  document.getElementById("end").volume = 0
+  document.getElementById('ring').play()
+  document.getElementById('end').play();
+
+  // if not playing and not paused start a new timer 
+  if( $(this).hasClass("playing") === false && $(this).hasClass("paused") === false){
+    console.log("new timer")
+    startTimer("minutes1",20,60,"reset")
+    $(this).addClass("playing")    
+    $(".timers").attr('disabled',true);
+    $(this).removeAttr('disabled');
+    return
   }
-}
-if(window.AppInventor){
-  var window.AppInventor = new AppInventor();
-  setInterval(function(){
-    // .html(window.AppInventor.getWebViewString())
-    var nearFar = parseInt(window.AppInventor.getWebViewString())
-    if(nearFar < 3){ 
-      $("#prox").html("we're close");
-    } else {
-      $("#prox").html("far");
-    }
-    }
-    ,500);
-}
-	function MeetingTimer ( targetName, countDownNumber, intervalName ) {
-		var miliseconds = 1000;
-		if(location.href.indexOf("dev") !== -1){
-			miliseconds = 200;
-		}
-		var passedCountDownNumber = countDownNumber;
-	    this.countDownNumber = countDownNumber;
-	    var isPlaying = "no";
 
-	    this.currentNumber = function(){
-	    	return countDownNumber;
-	    }
-	    this.playStatus = function(){
-	    	return isPlaying;
-	    }
-	    this.stop = function(){
-	    	clearInterval(window.intervalName);
-	    	clearInterval(window.intervalNameAudio);
-	    	clearInterval(window.intervalNameAudioWarning);
-	    	isPlaying = "no";
-	    	$(targetName).html("PLAY ("+countDownNumber+" Seconds remaining)");
-	    	$(targetName).removeClass("counting");
-	    	console.log("STOP CALLED")
-	    	// currentCountDownNumber = countDownNumber;
-	    }
+  // if paused start playing timer 
+  if($(this).hasClass("paused")){
+    console.log("play timer")
+    startTimer("minutes1",20,$(this).attr("data-valueAtPaused"))
+    $(this).removeClass("paused")
+    $(this).addClass("playing")
+    $(".timers").attr('disabled',true);
+    $(this).removeAttr('disabled');
+    return
+  }
 
-	    this.play = function(){
-			$(targetName).html("PAUSE ("+countDownNumber+" Seconds remaining)");	
-	    	isPlaying = "yes";
-	    	$(targetName).addClass("counting");
+  // if playing stop timer
+  if($(this).hasClass("playing")){
+    console.log("pause timer")
+    stopTimer()
+    $(this).removeClass("playing")
+    $(this).addClass("paused")
+    $(".timers").removeAttr('disabled');
+    return
+  }
 
-	    	window.intervalName = setInterval(function() {
-	    		console.log(countDownNumber+"<before");
-	    		if(countDownNumber > 0){
-	    			countDownNumber--;
-	    			// return
-	    		}
-	    		console.log(countDownNumber+"<after");
-	    		if(countDownNumber < 2){
-	    			countDownNumber = passedCountDownNumber; // countDownNumber = countDownNum;
-	    			console.log(countDownNumber+"<tested to be more or equal to zero");
-	    			// return this.stop();
-	    			clearInterval(window.intervalName);
-			    	clearInterval(window.intervalNameAudio);
-			    	clearInterval(window.intervalNameAudioWarning);
-			    	document.getElementById('end').currentTime = 0;
-	    			document.getElementById('end').play();
-	    			$(targetName).html($(targetName).attr("data-title"));
-	    			$(".timers").removeAttr('disabled');
-	    			$(targetName).removeClass("counting");
-			    	isPlaying = "no";
-
-	    			return
-	    		}
-	    		$(targetName).html("PAUSE ("+countDownNumber+" Seconds remaining)");
-
-    		}, miliseconds);
+}, false);
 
 
 
-	    	if(countDownNumber > 20){
-
-		    	var numcm = countDownNumber*miliseconds-20*miliseconds
-
-		    	
-		    	window.intervalNameAudioWarning = setTimeout(function() { 
-		    		document.getElementById('ring').currentTime = 0;
-		    		document.getElementById('ring').play();
-				}, numcm);
-	    	}
-	    		
-	    }
 
 
-	    this.reset = function(){
-	    	countDownNumber = passedCountDownNumber;
-	    	var targetTitle = $(targetName).attr("data-title");
-	    	$(targetName).html(targetTitle);
-			clearInterval(window.intervalName);
-	    	clearTimeout(window.intervalNameAudio);
-			clearTimeout(window.intervalNameAudioWarning);
-	    	isPlaying = "no";
-	    	$(targetName).removeClass("counting");
-	    }
 
-	}
+document.getElementById("seconds90").addEventListener("click", function(){
+  // hack so android will actually play audio
+  document.getElementById("ring").volume = 0
+  document.getElementById("end").volume = 0
+  document.getElementById('ring').play()
+  document.getElementById('end').play();
 
-	var mtimer60 = new MeetingTimer("#minutes1",60,"minutes1Timer");
-	var mtimer90 = new MeetingTimer("#seconds90",90,"minutes2Timer");
-	var mtimer120 = new MeetingTimer("#minutes2",120,"minutes3Timer");
+  // if not playing and not paused start a new timer 
+  if( $(this).hasClass("playing") === false && $(this).hasClass("paused") === false){
+    console.log("new timer")
+    startTimer("seconds90",20,90,"reset")
+    $(this).addClass("playing")    
+    $(".timers").attr('disabled',true);
+    $(this).removeAttr('disabled');
+    return
+  }
 
-	$("#testSounds").on("click",function(){
-		clearTimeout(window.testTime);
-		document.getElementById('ring').currentTime = 0;
-		document.getElementById('ring').play();
-		var dur = document.getElementById('ring').duration;
-		window.testTime = setTimeout(function(){
-				document.getElementById('end').currentTime = 0;
-				document.getElementById('end').play();
-			},dur*1000);
-	})
+  // if paused start playing timer 
+  if($(this).hasClass("paused")){
+    console.log("play timer")
+    startTimer("seconds90",20,$(this).attr("data-valueAtPaused"))
+    $(this).removeClass("paused")
+    $(this).addClass("playing")
+    $(".timers").attr('disabled',true);
+    $(this).removeAttr('disabled');
+    return
+  }
 
+  // if playing stop timer
+  if($(this).hasClass("playing")){
+    console.log("pause timer")
+    stopTimer()
+    $(this).removeClass("playing")
+    $(this).addClass("paused")
+    $(".timers").removeAttr('disabled');
+    return
+  }
 
-	var resetVol = function(){
-		$(".vol").each(function(index){
-			var newHeight = $(this).attr("data-vol") * 30;
-			var newCss = "inset 0px -"+newHeight+"px 0px rgba(0,0,0,0.4)"
-			$(this).css("box-shadow",newCss)
-			$(this).removeClass("selectedVol")
-		})
-	}
-
-	$(".vol").on("click",function(event){
-		event.preventDefault()
-		document.getElementById("ring").volume = $(this).attr("data-vol");
-		resetVol();
-		var newHeight = $(this).attr("data-vol") * 30;
-		var newCss = "inset 0px -"+newHeight+"px 0px rgba(0,0,0,.5)"
-		$(this).css("box-shadow",newCss)
-		$(this).addClass("selectedVol");
-		// var volumeControl = [];
-		// volumeControl.push($(this).attr("id"))
-		// volumeControl.push($(this).attr("data-vol"))
-		// volumeControl.join(",")
-		localStorage.setItem('volumeControl',$(this).attr("id"));
-		
-	});
-		
-	if(localStorage.getItem('volumeControl')){
-		console.log(localStorage.getItem('volumeControl'))
-		$("#"+localStorage.getItem('volumeControl')).click();
-	} else {
-		$(".vol").last().click();
-	}
+}, false);
 
 
-	$("#minutes1").on("click",function(){
-		document.getElementById('silence').play();
-		let methods = Object.getOwnPropertyNames(mtimer60);
-		console.log(methods+mtimer60.currentNumber());
-		if(mtimer60.playStatus() === "no") {
-			$(".timers").attr('disabled',true);
-			$("#minutes1").removeAttr('disabled');
-			mtimer60.play();
-		} else {
-			$(".timers").removeAttr('disabled');
-			mtimer60.stop();
-		}
-	});
-	
-	$("#seconds90").on("click",function(){
-		document.getElementById('silence').play();
-		let methods = Object.getOwnPropertyNames(mtimer60);
-		console.log(methods+mtimer90.currentNumber());
-		if(mtimer90.playStatus() === "no") {
-			$(".timers").attr('disabled',true);
-			$("#seconds90").removeAttr('disabled');
-			mtimer90.play();
-		} else {
-			$(".timers").removeAttr('disabled');
-			mtimer90.stop();
-		}
-	});
 
-	$("#minutes2").on("click",function(){
-		document.getElementById('silence').play();
-		let methods = Object.getOwnPropertyNames(mtimer60);
-		console.log(methods+mtimer120.currentNumber());
-		if(mtimer120.playStatus() === "no") {
-			$(".timers").attr('disabled',true);
-			$("#minutes2").removeAttr('disabled');
-			mtimer120.play();
-		} else {
-			$(".timers").removeAttr('disabled');
-			mtimer120.stop();
-		}
-	});
 
-	$("#reset").on("click",function(){
-		mtimer60.reset()
-		mtimer90.reset()
-		mtimer120.reset()
-		// document.location.reload(true);
-		// hacky and slow but reliable.
-	});
+
+
+
+
+
+
+document.getElementById("minutes2").addEventListener("click", function(){
+  // hack so android will actually play audio
+  document.getElementById("ring").volume = 0
+  document.getElementById("end").volume = 0
+  document.getElementById('ring').play()
+  document.getElementById('end').play();
+
+  // if not playing and not paused start a new timer 
+  if( $(this).hasClass("playing") === false && $(this).hasClass("paused") === false){
+    console.log("new timer")
+    startTimer("minutes2",20,120,"reset")
+    $(this).addClass("playing")    
+    $(".timers").attr('disabled',true);
+    $(this).removeAttr('disabled');
+    return
+  }
+
+  // if paused start playing timer 
+  if($(this).hasClass("paused")){
+    console.log("play timer")
+    startTimer("minutes2",20,$(this).attr("data-valueAtPaused"))
+    $(this).removeClass("paused")
+    $(this).addClass("playing")
+    $(".timers").attr('disabled',true);
+    $(this).removeAttr('disabled');
+    return
+  }
+
+  // if playing stop timer
+  if($(this).hasClass("playing")){
+    console.log("pause timer")
+    stopTimer()
+    $(this).removeClass("playing")
+    $(this).addClass("paused")
+    $(".timers").removeAttr('disabled');
+    return
+  }
+
+}, false);
+
+
+
+
+
+  $("#testSounds").on("click",function(){
+    clearTimeout(window.testTime);
+    document.getElementById('ring').currentTime = 0;
+    document.getElementById('ring').play();
+    var dur = document.getElementById('ring').duration;
+    window.testTime = setTimeout(function(){
+        document.getElementById('end').currentTime = 0;
+        document.getElementById('end').play();
+      },dur*1000);
+  })
+
+
+  var resetVol = function(){
+    $(".vol").each(function(index){
+      var newHeight = $(this).attr("data-vol") * 30;
+      var newCss = "inset 0px -"+newHeight+"px 0px rgba(0,0,0,0.4)"
+      $(this).css("box-shadow",newCss)
+      $(this).removeClass("selectedVol")
+    })
+  }
+
+  $(".vol").on("click",function(event){
+    event.preventDefault()
+    document.getElementById("ring").volume = $(this).attr("data-vol");
+    document.getElementById("end").volume = $(this).attr("data-vol");
+    resetVol();
+    var newHeight = $(this).attr("data-vol") * 30;
+    var newCss = "inset 0px -"+newHeight+"px 0px rgba(0,0,0,.5)"
+    $(this).css("box-shadow",newCss)
+    $(this).addClass("selectedVol");
+    // var volumeControl = [];
+    // volumeControl.push($(this).attr("id"))
+    // volumeControl.push($(this).attr("data-vol"))
+    // volumeControl.join(",")
+    localStorage.setItem('volumeControl',$(this).attr("id"));
+    
+  });
+    
+  if(localStorage.getItem('volumeControl')){
+    console.log(localStorage.getItem('volumeControl'))
+    $("#"+localStorage.getItem('volumeControl')).click();
+  } else {
+    $(".vol").last().click();
+  }
+
 
 
 }); // jquery on ready
