@@ -790,6 +790,9 @@ there.
         box-sizing: border-box;
         font-family: "Raleway", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
     }
+    .disabled {
+      color: #bbbbbb;
+    }
         </style>
         <script src="js/vendor/modernizr-2.8.3.min.js"></script>
     </head>
@@ -800,7 +803,7 @@ there.
     <div class="container editing">
         <div class="row controls">
             <div class="twelve columns">
-              <h2>Meeting Timer with 20 second warning v1.22</h2>
+              <h2>Meeting Timer with 20 second warning v1.23</h2>
               <p>This app is designed to be used with your phone/computer awake, if it sleeps the timers will likely not work or work inconsistantly.</p>
             </div>
 
@@ -915,6 +918,7 @@ var startTimer = function(target,warningArg,endArg,restartArg){
     $("#"+target).removeClass("playing")
     $(this).removeAttr("data-valueAtPaused")
     $(".timers").removeAttr('disabled');
+    $(".timers").removeClass("disabled")
     };
     
   }, 1000);   
@@ -940,6 +944,9 @@ var resetTimer = function(){
     $("#minutes1").removeClass("playing")
     $("#minutes2").removeClass("playing")
     $("#seconds90").removeClass("playing")
+    $("#minutes1").removeClass("disabled")
+    $("#minutes2").removeClass("disabled")
+    $("#seconds90").removeClass("disabled")
     $("#minutes1").removeAttr("disabled")
     $("#minutes2").removeAttr("disabled")
     $("#seconds90").removeAttr("disabled")
@@ -967,8 +974,10 @@ document.getElementById("minutes1").addEventListener("click", function(){
     console.log("new timer")
     startTimer("minutes1",20,60,"reset")
     $(this).addClass("playing")    
+    $(".timers").addClass("disabled")
     $(".timers").attr('disabled',true);
     $(this).removeAttr('disabled');
+    $(this).removeClass("disabled")
     return
   }
 
@@ -979,7 +988,9 @@ document.getElementById("minutes1").addEventListener("click", function(){
     $(this).removeClass("paused")
     $(this).addClass("playing")
     $(".timers").attr('disabled',true);
+    $(".timers").addClass("disabled")
     $(this).removeAttr('disabled');
+    $(this).removeClass('disabled');
     return
   }
 
@@ -989,6 +1000,7 @@ document.getElementById("minutes1").addEventListener("click", function(){
     stopTimer()
     $(this).removeClass("playing")
     $(this).addClass("paused")
+    $(".timers").removeClass("disabled")
     $(".timers").removeAttr('disabled');
     return
   }
@@ -1023,7 +1035,9 @@ document.getElementById("seconds90").addEventListener("click", function(){
     startTimer("seconds90",20,$(this).attr("data-valueAtPaused"))
     $(this).removeClass("paused")
     $(this).addClass("playing")
+    $(".timers").addClass("disabled")
     $(".timers").attr('disabled',true);
+    $(this).removeClass('disabled');
     $(this).removeAttr('disabled');
     return
   }
@@ -1035,6 +1049,7 @@ document.getElementById("seconds90").addEventListener("click", function(){
     $(this).removeClass("playing")
     $(this).addClass("paused")
     $(".timers").removeAttr('disabled');
+    $(".timers").removeClass("disabled")
     return
   }
 
@@ -1073,7 +1088,9 @@ document.getElementById("minutes2").addEventListener("click", function(){
     $(this).removeClass("paused")
     $(this).addClass("playing")
     $(".timers").attr('disabled',true);
+    $(".timers").addClass("disabled")
     $(this).removeAttr('disabled');
+    $(this).removeClass('disabled');
     return
   }
 
@@ -1083,6 +1100,7 @@ document.getElementById("minutes2").addEventListener("click", function(){
     stopTimer()
     $(this).removeClass("playing")
     $(this).addClass("paused")
+    $(".timers").removeClass("disabled")
     $(".timers").removeAttr('disabled');
     return
   }
